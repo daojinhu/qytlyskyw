@@ -1,0 +1,74 @@
+/* pages/main/main.wxss */
+.add {
+  position: fixed;
+  right: 40rpx;
+  bottom: 40rpx;
+  background: #393F4F;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 60rpx;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  padding: 16rpx; 
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 0 8px 1px #666699;
+  z-index: 1000;
+}
+.btn-person{
+  margin-left:-1px; 
+  margin-top: -1px;
+}
+.grid{
+  background:#FCFCFC;
+  margin: 20px 10rpx 0 10rpx;
+}
+.lab{
+  text-align: center;
+  margin: 20px 0 10px 0;
+  color: #00B26A;
+}
+.mypanel{
+  /* background: #A4D3EE; */
+  background: #fff;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  border-radius: 10px;
+  height: 120px;
+  border: 1px solid #999;
+}
+
+/* 显示地址 */
+.head-first{
+  /* position: fixed;
+  z-index: 1000;  */
+  width: 100%;
+  height: 40px;
+  background-color: #00B26A;
+  margin-top: 0px;
+}
+.head{
+  /* overflow: hidden; */
+  width: 15%;
+  /* background-color: red; */
+  float: left; 
+  text-align: center;
+  line-height: 22px;
+}
+.head-img{
+  width: 18px;
+  height: 18px;
+  padding: 6px 0px 6px 0px;  
+  display: inline-block; 
+  margin-top: 6px; 
+}
+.head-lab{
+  width: 85%;
+  font-size: 18px;
+  color: #fff;
+  padding: 6px 0px 6px 0px;
+  
+}
+
+

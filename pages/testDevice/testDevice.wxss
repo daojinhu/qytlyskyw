@@ -1,0 +1,18 @@
+/* pages/testDevice/testDevice.wxss */
+.my-list{
+  margin-top: 20rpx;
+  margin-bottom: 40rpx;
+}
+.lab{
+  margin-top: 20rpx;
+  margin-left: 28rpx;
+  color: #00B26A;
+  font-size: 14px;
+}
+/* 提交按钮 */
+.btn{
+  margin-left: 15rpx;
+  margin-right: 15rpx; 
+  margin-top: 50rpx; 
+  border-radius: 40rpx
+}

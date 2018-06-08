@@ -1,0 +1,11 @@
+/* pages/taskInfo/taskInfo.wxss */
+.my-list{
+  margin-top: 20rpx;
+  margin-bottom: 40rpx;
+}
+.lab{
+  margin-top: 20rpx;
+  margin-left: 28rpx;
+  color: #00B26A;
+  font-size: 14px;
+}

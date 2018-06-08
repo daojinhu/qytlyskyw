@@ -1,0 +1,62 @@
+<!--pages/testDevice/testDevice.wxml-->
+<view class="page">
+  <view class="page__bd my-list" wx:for="{{list}}" wx:key="unique">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">设备名称：</view>
+        <view class="weui-cell__ft">{{item.deviceName}}</view>
+      </view>  
+    </view>
+    <view class="lab">确认设备信息</view>
+
+    <view class="weui-cells weui-cells_after-title my-list">  
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">类型：</view>
+        <view class="weui-cell__ft" wx:if="{{item.operDevice[0].deviceType == 1}}">热水澡</view>
+        <view class="weui-cell__ft" wx:elif="{{item.operDevice[0].deviceType == 2}}">吹风机</view>
+        <view class="weui-cell__ft" wx:else>洗衣机</view>
+      </view>   
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">位置：</view>
+        <view class="weui-cell__ft">{{item.address}}</view>
+      </view>  
+    </view>
+
+    <view class="lab">确认设备费率</view>
+
+    <view class="weui-cells weui-cells_after-title my-list">  
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">供应商：</view>
+        <view class="weui-cell__ft">{{item.supplier}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">费率：</view>
+        <view class="weui-cell__ft">{{item.rate}}</view>
+      </view>  
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">自动关阀时间：</view>
+        <view class="weui-cell__ft">{{item.closeTime}}分钟</view>
+      </view> 
+    </view>
+    <button class="btn" type="primary" form-type='submit' style="background: linear-gradient(to right, #22a0ff, #007ce7);" bindtap="userDevice">开始用水</button>
+    <button class="btn" type="primary" form-type='submit' style="background: linear-gradient(to right, #EDC017, #00C777);" bindtap="closeDevice">试水结束</button>
+  </view>
+</view>

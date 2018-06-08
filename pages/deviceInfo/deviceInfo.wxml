@@ -1,0 +1,86 @@
+<!--pages/deviceInfo/deviceInfo.wxml-->
+<view class="page">
+  <view class="page__bd my-list" wx:for="{{list}}" wx:key="unique">
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">类型：</view>
+        <view class="weui-cell__ft" wx:if="{{item.deviceType == 1}}">热水澡</view>
+        <view class="weui-cell__ft" wx:elif="{{item.deviceType == 2}}">吹风机</view>
+        <view class="weui-cell__ft" wx:else>洗衣机</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">设备ID：</view>
+        <view class="weui-cell__ft">{{item.deviceName}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">位置：</view>
+        <view class="weui-cell__ft">{{item.address}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">费率：</view>
+        <view class="weui-cell__ft">{{item.rate}}</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">绑定时间：</view>
+        <view class="weui-cell__ft">{{item.createTime}}</view>
+      </view>
+
+      
+    </view>
+    <view class="weui-cells weui-cells_after-title my-list">
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">该设备维修记录</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
+      </navigator>
+    </view>
+    <view class="weui-cells weui-cells_after-title my-list">
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">该设备订单列表</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
+      </navigator>
+    </view>
+    <view class="weui-cells weui-cells_after-title my-list">
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">更新设备KEY</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
+      </navigator>
+    </view>
+    <view class="weui-cells weui-cells_after-title my-list">
+      <navigator url="../testDevice/testDevice?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">设备试水</view>
+        <!-- <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view> -->
+      </navigator>
+    </view>
+
+    <view class="btn-logout">
+      <button class="weui-btn" type="primary" style="background: linear-gradient(to right, #22a0ff, #007ce7);">编辑设备信息</button>
+    </view>
+  </view>
+</view>

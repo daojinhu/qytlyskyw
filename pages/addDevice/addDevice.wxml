@@ -1,0 +1,31 @@
+<!--pages/addDevice/addDevice.wxml-->
+<view class="page">
+  <view class="page__bd">
+  <view class="add-device-list">
+    <view class="weui-cells weui-cells_after-title add-device-list">
+      <navigator url="../selectBluetooth/selectBluetooth?id=1" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">添加热水器</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+    <view class="weui-cells weui-cells_after-title add-device-list">
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">添加饮水机</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+    <view class="weui-cells weui-cells_after-title add-device-list">
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">添加吹风机</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+    <view class="weui-cells weui-cells_after-title add-device-list">
+      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">添加洗衣机</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+      </navigator>
+    </view>
+    </view>
+  </view>
+</view>

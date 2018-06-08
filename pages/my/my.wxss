@@ -1,0 +1,7 @@
+/* pages/my/my.wxss */
+.my-list{
+  margin-top: 20rpx;
+}
+.btn-logout{
+  margin: 200px 0px 0px 0px;
+}

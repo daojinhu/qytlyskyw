@@ -1,0 +1,4 @@
+/* pages/selectBluetooth/selectBluetooth.wxss */
+.add-device-list{
+  margin-top: 20px;
+}

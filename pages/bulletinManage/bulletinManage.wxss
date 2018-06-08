@@ -1,0 +1,23 @@
+.lab{
+  text-align: center;
+  margin: 20px 0 10px 0;
+  color: #00B26A;
+}
+.mypanel{
+  /* background: #A4D3EE; */
+  background: #fff;
+  margin-left: 10rpx;
+  margin-right: 10rpx;
+  border-radius: 10px;
+  border: 1px solid #999;
+}
+.flag{
+  color: #fff;
+  font-size: 20px;
+}
+/* 添加设备按钮 */
+.btn-addDevice{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

@@ -1,0 +1,30 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/bluetooth/bluetooth",
+    "pages/main/main",
+    "pages/my/my",
+    "pages/repairManage/repairManage",
+    "pages/addDevice/addDevice",
+    "pages/deviceManage/deviceManage",
+    "pages/changeSchool/changeSchool",
+    "pages/login/login",
+    "pages/deviceInfo/deviceInfo",
+    "pages/taskInfo/taskInfo",
+    "pages/addDeviceInfo/addDeviceInfo",
+    "pages/upcomingTaskInfo/upcomingTaskInfo",
+    "pages/updatePassword/updatePassword",
+    "pages/bulletinManage/bulletinManage",
+    "pages/releaseBulletin/releaseBulletin",
+    "pages/selectBluetooth/selectBluetooth",
+    "pages/testDevice/testDevice"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black",
+    "backgroundColor": "#fbf9fe"
+  }
+}

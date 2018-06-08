@@ -1,0 +1,68 @@
+<!--pages/main/main.wxml-->
+<view class="add" bindtap="addHandle"><image class="weui-grid__icon btn-person" src="../../images/person.png" /></view>
+<view class="page">
+   <view class="page__hd head-first" bindtap="goToChangeSchool">
+    <view class="head">
+      <image class="head-img" src="../../images/location.png" />
+    </view>
+    <view class="page__title head-lab">深圳市乾元通科技有限公司</view>
+  </view> 
+  <view class="page__bd">
+    <view class="weui-grids grid">
+      <block wx:key="*this">
+        <navigator url="../deviceManage/deviceManage" class="weui-grid" hover-class="weui-grid_active">
+          <image class="weui-grid__icon" src="../../images/device.png" />
+          <view class="weui-grid__label">设备管理</view>
+        </navigator>
+        <navigator url="../repairManage/repairManage" class="weui-grid" hover-class="weui-grid_active">
+          <image class="weui-grid__icon" src="../../images/repair.png" />
+          <view class="weui-grid__label">报修管理</view>
+        </navigator>
+        <navigator url="../bulletinManage/bulletinManage" class="weui-grid" hover-class="weui-grid_active">
+          <image class="weui-grid__icon" src="../../images/bulletin.png" />
+          <view class="weui-grid__label">公告管理</view>
+        </navigator>
+      </block>
+    </view>
+    <view class="lab">
+      <label>------待办任务------</label>
+    </view>
+
+    <!-- <navigator url="../deviceInfo/deviceInfo"> -->
+    <view class="weui-panel mypanel" bindtap="goRepairUpcomingInfo" wx:for="{{list}}" wx:key="unique" id="{{item.id}}">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box__title weui-media-box__title_in-text">{{item.problemDescription}}</view>
+          <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta" style="color:#666;">时间：</view>
+            <view class="weui-media-box__info__meta" style="color:#666;">{{item.createTime}}</view>
+          </view>
+          <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
+            <view class="weui-media-box__info__meta" style="color:#666;">{{item.operDevice[0].address}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- </navigator> -->
+
+    <!-- <view class="weui-panel mypanel">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box__title weui-media-box__title_in-text">热水澡报修</view>
+          <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta" style="color:#666;">时间：</view>
+            <view class="weui-media-box__info__meta" style="color:#666;">2018-04-28 16:39:59</view>
+          </view>
+          <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
+            <view class="weui-media-box__info__meta" style="color:#666;">嘉皇源科技园</view>
+          </view>
+        </view>
+      </view>
+    </view> -->
+
+                  
+
+  </view>
+</view>

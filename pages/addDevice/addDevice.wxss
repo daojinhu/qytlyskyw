@@ -1,0 +1,4 @@
+/* pages/addDevice/addDevice.wxss */
+.add-device-list{
+  margin-top: 20px;
+}
