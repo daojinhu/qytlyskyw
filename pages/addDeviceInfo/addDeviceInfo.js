@@ -13,23 +13,41 @@ Page({
     //学校
     school:[],
     //设备位置
-    address:[''],
+    address:[],
     //楼栋
-    building:'',
+    building:[],
     //楼层
-    floor:'',
+    floor:[],
     //宿舍
-    dormitory:'',
+    room:[],
     //供应商
     supplier:'',
     //费率
-    rate:'',
+    rate:[],
+    //扣费金额
+    deduction:[],
+    //脉冲
+    pulse:[],
     //自动关阀时间
     closeTime:['10','15','20'],
+    //学校id
+    schoolId: '',
+    //楼栋id
+    buildingId:'',
+    //楼层id
+    floorId:'',
+    //宿舍id
+    roomId:'',
 
     // text:"这是一个页面"
     array: ['Android', 'IOS', 'ReactNativ', 'WeChat', 'Web'],
-    index: 0,
+    index: 0, //学校索引
+   // indexAddress: 0,//地址索引
+    indexBuilding: 0,//楼栋索引
+    indexFloor: 0,//楼层索引
+    indexRoom: 0,//宿舍索引
+    indexRate: 0,//费率索引
+    indexColseTime: 0,//自动关阀时间索引
     time: '08:30',
     date: '2016-09-26',
     deviceId:'',
@@ -42,7 +60,10 @@ Page({
     notifyServicweId: "", //通知服务UUid  
     notifyCharacteristicsId: "", //通知特征值UUID
     characteristics1: "", // 连接设备的状态值
-    jieshou: ''
+    jieshou: '',
+    deviceNo: '', //机器编号
+    useNum: '', //使用次数
+
   },
 
   /**
@@ -75,6 +96,25 @@ Page({
         })
       }
     })
+
+    //获取费率
+    wx.request({
+      url: url + '/operUser/queryOperRateInfo',
+      data: {
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: "GET",
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          rate: res.data.rateInfoList
+        })
+      }
+    })
+
+   
   },
 
   /**
@@ -160,7 +200,18 @@ Page({
   },
   formSubmit: function(e){
     var that = this;
-
+    var indexRate = that.data.indexRate;
+    var rate = that.data.rate;
+    //扣费金额
+    //var deduction = rate[indexRate].money;
+    var deduction = "05";
+    //脉冲
+    //var pulse = rate[indexRate].pulse;
+    var pulse = "21";
+    //自动关阀时间
+    var indexCloseTime = that.data.indexCloseTime;
+    var closeTime = rate[indexCloseTime].closeTime;
+    console.log(deduction + "==" + pulse + "==" + closeTime);
     ////////////////////////////////
     //连接
     var deviceId = that.data.deviceId;
@@ -235,44 +286,124 @@ Page({
                     console.log("1" + that.data.notifyServicweId);
                     console.log("2" + that.data.notifyCharacteristicsId);
                     ///////////////////////////////////
-                    //写费率，只写一次
-                    var hex = 'A701101122334455667788430000010A0002553E'
-                    var typedArray = new Uint8Array(hex.match(/[\da-f]{2}/gi).map(function (h) {
-                      return parseInt(h, 16)
-                    }))
-                    var buffer1 = typedArray.buffer
-                    console.log("十六进制转换为arraybuffer" + buffer1)
-                    console.log("writeServicweId", that.data.writeServicweId);
-                    console.log("writeCharacteristicsId", that.data.writeCharacteristicsId);
-                    //let dataView = new DataView(buffer)
-                    //dataView.setUint8(0, 11)
-                    //console.log(Uint8View)
-                    wx.writeBLECharacteristicValue({
-                      // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取  
-                      deviceId: that.data.connectedDeviceId,
-                      // 这里的 serviceId 需要在上面的 getBLEDeviceServices 接口中获取  
-                      serviceId: that.data.writeServicweId,
-                      // 这里的 characteristicId 需要在上面的 getBLEDeviceCharacteristics 接口中获取  
-                      characteristicId: that.data.writeCharacteristicsId,
-                      // 这里的value是ArrayBuffer类型  
-                      value: buffer1,
+                    //从服务器获取连接字符串
+                    var url = getApp().globalData.requestUrl;
+                    wx.request({
+                      url: url + '/operUser/connectCalculate', 
+                      data: {
+                        deduction: deduction,
+                        pulse: pulse,
+                        delay: closeTime
+                      },
+                      header: {
+                        'content-type': 'application/x-www-form-urlencoded' // 默认值
+                      },
+                      method: "POST",
                       success: function (res) {
-                        console.log('writeBLECharacteristicValue success', res.errMsg)
+                        console.log(res.data);
+                        ///////////////////////////////
+                        //写费率，只写一次
+                        var hex = res.data.connCalString;
+                        var typedArray = new Uint8Array(hex.match(/[\da-f]{2}/gi).map(function (h) {
+                          return parseInt(h, 16)
+                        }))
+                        var buffer1 = typedArray.buffer
+                        console.log("十六进制转换为arraybuffer" + buffer1)
+                        console.log("writeServicweId", that.data.writeServicweId);
+                        console.log("writeCharacteristicsId", that.data.writeCharacteristicsId);
+                        //let dataView = new DataView(buffer)
+                        //dataView.setUint8(0, 11)
+                        //console.log(Uint8View)
+                        wx.writeBLECharacteristicValue({
+                          // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取  
+                          deviceId: that.data.connectedDeviceId,
+                          // 这里的 serviceId 需要在上面的 getBLEDeviceServices 接口中获取  
+                          serviceId: that.data.writeServicweId,
+                          // 这里的 characteristicId 需要在上面的 getBLEDeviceCharacteristics 接口中获取  
+                          characteristicId: that.data.writeCharacteristicsId,
+                          // 这里的value是ArrayBuffer类型  
+                          value: buffer1,
+                          success: function (res) {
+                            console.log('writeBLECharacteristicValue success', res.errMsg)
+                          }
+                        })
+                        // 这里的回调可以获取到 write 导致的特征值改变  
+                        wx.onBLECharacteristicValueChange(function (characteristic) {
+                          console.log('characteristic value changed:1', characteristic)
+                          let hex = Array.prototype.map.call(new Uint8Array(characteristic.value), x => ('00' + x.toString(16)).slice(-2)).join('');
+                          console.log("回调" + hex);
+                          that.setData({
+                            jieshou: hex,
+                            //机器编号
+                            deviceNo: hex.substr(6, 10),
+                            //使用次数
+                            useNum: hex.substr(16, 6)
+                          })
+                          //a8011081371561fa0000061000000002033e01c4
+                          console.log(hex.substr(6, 10) + "==" + hex.substr(16, 6) + "==" + hex.substr(22, 10));
+                          /////////////////////////////////
+                          var indexRate = that.data.indexRate;
+                          var selectRate = rate[indexRate].rate;
+                          var url = getApp().globalData.requestUrl;
+                          //id为1代表为添加热水澡
+                          var deviceType = that.data.deviceType;
+                          var operDevice = e.detail.value;
+
+                          var roomIndex = that.data.indexRoom;
+                          var newroom = that.data.room;
+                          var roomid = newroom[roomIndex].roomId;
+
+                          operDevice["deviceName"] = that.data.deviceName;
+                          operDevice["deviceId"] = that.data.deviceId;
+                          operDevice["deviceNo"] = hex.substr(6, 10);
+                          operDevice["useNum"] = hex.substr(16, 6);
+                          operDevice["deviceType"] = deviceType;
+                          operDevice["school"] = that.data.schoolId;
+                          operDevice["building"] = that.data.buildingId;
+                          operDevice["floor"] = that.data.floorId;
+                          operDevice["dormitory"] = roomid;
+                          operDevice["supplier"] = "深圳市乾元通科技有限公司";
+                          operDevice["rate"] = selectRate;
+                          operDevice["closeTime"] = closeTime;
+                          // console.log(JSON.stringify(operDevice));
+                          wx.request({
+                            url: url + '/operUser/addDevice',
+                            data: JSON.stringify(operDevice),
+                            header: {
+                              'content-type': 'application/json' // 默认值
+                            },
+                            method: "POST",
+                            success: function (res) {
+                              //console.log(res.data)
+                              var result = res.data.success;
+                              if (result != true) {
+                                toaseText = "设备添加失败" + res.data.errMsg;
+                                wx.showToast({
+                                  title: toaseText,
+                                  icon: '',
+                                  duration: 2000
+                                });
+                                return;
+                              }
+                              var toaseText = "设备添加成功！";
+                              wx.showToast({
+                                title: toaseText,
+                                icon: '',
+                                duration: 2000
+                              });
+                              wx.redirectTo({
+                                url: '../deviceManage/deviceManage',
+                              })
+
+                            }
+                          })
+                          ///////////////////////////////
+
+                        })
+                    ///////////////////////////////////
                       }
                     })
-                    // 这里的回调可以获取到 write 导致的特征值改变  
-                    wx.onBLECharacteristicValueChange(function (characteristic) {
-                      console.log('characteristic value changed:1', characteristic)
-                      let hex = Array.prototype.map.call(new Uint8Array(characteristic.value), x => ('00' + x.toString(16)).slice(-2)).join('');
-                      console.log("回调"+hex);
-                      that.setData({
-                        jieshou: hex,
-                      })
-                      //a8011081371561fa0000061000000002033e01c4
-                      console.log(hex.substr(6, 10) + "==" + hex.substr(16, 6) + "==" + hex.substr(22, 10));
-
-                    })
-                    ///////////////////////////////////
+                    
                   },
                   fail: function () {
                     console.log('shibai');
@@ -307,145 +438,157 @@ Page({
     })
     console.log(that.data.connectedDeviceId);
     ////////////////////////////////
-  //   var url = getApp().globalData.requestUrl; 
-  //   //id为1代表为添加热水澡
-  //   var deviceType = that.data.deviceType;
-  //   var operDevice = e.detail.value;
-  //   // if(operDevice.deviceName=='' || operDevice.deviceName == null || operDevice.deviceName.length == 0){
-  //   //   wx.showToast({
-  //   //     title: '设备号不能为空',
-  //   //     icon: 'loading',
-  //   //     duration: 1000
-  //   //   })
-  //   //   return;
-  //   // }
-  //   // if (operDevice.school == '' || operDevice.school == null || operDevice.school.length == 0) {
-  //   //   wx.showToast({
-  //   //     title: '学校不能为空',
-  //   //     icon: 'loading',
-  //   //     duration: 1000
-  //   //   })
-  //   //   return;
-  //   // }
-  //   // if (operDevice.address == '' || operDevice.address == null || operDevice.address.length == 0) {
-  //   //   wx.showToast({
-  //   //     title: '设备地址不能为空',
-  //   //     icon: 'loading',
-  //   //     duration: 1000
-  //   //   })
-  //   //   return;
-  //   // }
-  //   // if (operDevice.building == '' || operDevice.building == null || operDevice.building.length == 0) {
-  //   //   wx.showToast({
-  //   //     title: '楼栋号不能为空',
-  //   //     icon: 'loading',
-  //   //     duration: 1000
-  //   //   })
-  //   //   return;
-  //   // }
-  //   // if (operDevice.floor == '' || operDevice.floor == null || operDevice.floor.length == 0) {
-  //   //   wx.showToast({
-  //   //     title: '楼层号不能为空',
-  //   //     icon: 'loading',
-  //   //     duration: 1000
-  //   //   })
-  //   //   return;
-  //   // }
-  //   // if (operDevice.dormitory == '' || operDevice.dormitory == null || operDevice.dormitory.length == 0) {
-  //   //   wx.showToast({
-  //   //     title: '宿舍号不能为空',
-  //   //     icon: 'loading',
-  //   //     duration: 1000
-  //   //   })
-  //   //   return;
-  //   // }
-  //   // if (operDevice.rate == '' || operDevice.rate == null || operDevice.rate.length == 0) {
-  //   //   wx.showToast({
-  //   //     title: '费率不能为空',
-  //   //     icon: 'loading',
-  //   //     duration: 1000
-  //   //   })
-  //   //   return;
-  //   // }
-  //   // if (operDevice.closeTime == '' || operDevice.closeTime == null || operDevice.closeTime.length == 0) {
-  //   //   wx.showToast({
-  //   //     title: '自动关阀时间不能为空',
-  //   //     icon: 'loading',
-  //   //     duration: 1000
-  //   //   })
-  //   //   return;
-  //   // }
 
-  //   operDevice["deviceType"] = deviceType;
-  //   operDevice["supplier"] = "深圳市乾元通科技有限公司";
-  //  // console.log(JSON.stringify(operDevice));
-  //   wx.request({
-  //     url: url + '/operUser/addDevice',
-  //     data: JSON.stringify(operDevice),
-  //     header: {
-  //       'content-type': 'application/json' // 默认值
-  //     },
-  //     method: "POST",
-  //     success: function (res) {
-  //       //console.log(res.data)
-  //       var result = res.data.success;        
-  //       if (result != true) {
-  //         toaseText = "设备添加失败" + res.data.errMsg;
-  //         wx.showToast({
-  //           title: toaseText,
-  //           icon: '',
-  //           duration: 2000
-  //         });
-  //         return;
-  //       }
-  //       var toaseText = "设备添加成功！";
-  //       wx.showToast({
-  //         title: toaseText,
-  //         icon: '',
-  //         duration: 2000
-  //       });
-  //       wx.redirectTo({
-  //         url: '../deviceManage/deviceManage',
-  //       })
-
-  //     }
-  //   })
   },
 
-  /**
- * 监听普通picker选择器
- */
-  listenerPickerSelected: function (e) {
-    //改变index值，通过setData()方法重绘界面
-    this.setData({
-      index: e.detail.value
-    });
-  },
 
-  /**
-   * 监听时间picker选择器
-   */
-  listenerTimePickerSelected: function (e) {
-    //调用setData()重新绘制
-    this.setData({
-      time: e.detail.value,
-    });
-  },
-
-  /**
-   * 监听日期picker选择器
-   */
-  listenerDatePickerSelected: function (e) {
-    this.setData({
-      date: e.detail.value
-    })
-  },
   //监听学校选择器
   listenerPickerSchool: function(e){
     this.setData({
       index: e.detail.value
     })
   },
+  //监听楼栋号选择器
+  listenerPickerBuilding: function (e) {
+    this.setData({
+      indexBuilding: e.detail.value
+    })
+  },
+  //监听楼层号选择器
+  listenerPickerFloor: function (e) {
+    this.setData({
+      indexFloor: e.detail.value
+    })
+  },
+  //监听宿舍号选择器
+  listenerPickerRoom: function (e) {
+    this.setData({
+      indexRoom: e.detail.value
+    })
+  },
+  //监听费率选择器
+  listenerPickerRate: function (e) {
+    var that = this;
+    that.setData({
+      indexRate: e.detail.value
+    })
+  },
+  //监听自动关阀时间选择器
+  listenerPickerColseTime: function (e) {
+    this.setData({
+      indexCloseTime: e.detail.value
+    })
+  },
+
+  //加载楼栋号
+  loadBuilding: function(){
+    var that = this;
+    var index = that.data.index;
+    var xx = that.data.school;
+    console.log("学校"+xx[index].deptId);
+    that.setData({
+      schoolId: xx[index].deptId
+    })
+    if(index == '' || index == null){
+      wx.showToast({
+        title: '请选择学校号',
+        icon: 'loading',
+        duration: 1000
+      })
+      return;
+    }
+    var url = getApp().globalData.requestUrl;
+    //获取楼栋
+    wx.request({
+      url: url + '/operUser/queryOperBuildingById',
+      data: {
+        deptId: xx[index].deptId
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      method: "POST",
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          building: res.data.queryOperBuildingByIdList
+        })
+      }
+    })
+  },
+  //加载楼层号
+  loadFloor: function(){
+    var that = this;
+    var indexBuilding = that.data.indexBuilding;
+    var xx = that.data.building;
+    console.log("学校" + xx[indexBuilding].buildingId);
+    that.setData({
+      buildingId: xx[indexBuilding].buildingId
+    })
+    if (indexBuilding == '' || indexBuilding == null) {
+      wx.showToast({
+        title: '请选择楼栋号',
+        icon: 'loading',
+        duration: 1000
+      })
+      return;
+    }
+    var url = getApp().globalData.requestUrl;
+    //获取楼层
+    wx.request({
+      url: url + '/operUser/queryOperFloorByBuildingId',
+      data: {
+        buildingId: xx[indexBuilding].buildingId
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      method: "POST",
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          floor: res.data.queryOperFloorByBuildingIdList
+        })
+      }
+    })
+  },
+  //加载房间号
+  loadRoom: function(){
+    var that = this;
+    var indexFloor = that.data.indexFloor;
+    var xx = that.data.floor;
+    console.log("房间" + xx[indexFloor].floorId);
+    that.setData({
+      floorId: xx[indexFloor].floorId
+    })
+    if (indexFloor == '' || indexFloor == null) {
+      wx.showToast({
+        title: '请选择楼层号',
+        icon: 'loading',
+        duration: 1000
+      })
+      return;
+    }
+    var url = getApp().globalData.requestUrl;
+    //获取楼层
+    wx.request({
+      url: url + '/operUser/queryOperRoomByFloorId',
+      data: {
+        floorId: xx[indexFloor].floorId
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      method: "POST",
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          room: res.data.queryOperRoomByFloorId,
+        })
+      }
+    })
+  },
+  
 
 
   //返回到选择蓝牙设备页面

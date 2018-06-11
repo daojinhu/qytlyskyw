@@ -56,7 +56,7 @@
         <view class="weui-cell__ft">{{item.closeTime}}分钟</view>
       </view> 
     </view>
-    <button class="btn" type="primary" form-type='submit' style="background: linear-gradient(to right, #22a0ff, #007ce7);" bindtap="userDevice">开始用水</button>
-    <button class="btn" type="primary" form-type='submit' style="background: linear-gradient(to right, #EDC017, #00C777);" bindtap="closeDevice">试水结束</button>
+    <button class="btn" type="primary" form-type='submit' style="background: linear-gradient(to right, #22a0ff, #007ce7);" disabled='{{disabled}}' bindtap="userDevice">开始用水</button>
+    <button class="btn" type="primary" form-type='submit' style="background: linear-gradient(to right, #EDC017, #00C777);" disabled='{{disabled1}}' bindtap="closeDevice">试水结束</button>
   </view>
 </view>

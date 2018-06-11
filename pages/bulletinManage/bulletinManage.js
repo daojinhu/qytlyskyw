@@ -5,21 +5,37 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    list: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    var that = this;
+    var url = getApp().globalData.requestUrl;
+    wx.request({
+      url: url + '/operUser/queryBulletinInfo',
+      data: {
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: "GET",
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          list: res.data.operBulletinList
+        })
+      }
+    })
   },
 
   /**
