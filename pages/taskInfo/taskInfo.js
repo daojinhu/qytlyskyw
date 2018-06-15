@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[]
+    list:[],
+    school:''
   },
 
   /**
@@ -17,7 +18,8 @@ Page({
     var url = getApp().globalData.requestUrl;
     var account = wx.getStorageSync("account");
     that.setData({
-      icon: base64.icon20
+      icon: base64.icon20,
+      school: wx.getStorageSync("school")
     });
     that.setData({
       rid: options.rid

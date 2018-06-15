@@ -100,8 +100,15 @@ Page({
   //提交事件
   evaSubmit: function (eee) {
     var that = this;
+    //创建人
+    var account = wx.getStorageSync("account");
+    //状态
+    var status = "0";
+    //内容
     var content = that.data.evaContent;
     console.log(content);
+    //结束时间
+    var endTime = that.data.date;
     
     //提交(自定义的get方法)
     wx.showModal({
@@ -129,34 +136,44 @@ Page({
             })
             return;
           }
-          // wx.request({
-          //   url: url + '/operUser/deleteOperDevice',
-          //   data: {
-          //     "id": e.currentTarget.dataset.id
-          //   },
-          //   header: {
-          //     'content-type': 'application/json' // 默认值
-          //   },
-          //   method: 'GET',
-          //   success: function (res) {
-          //     var result = res.data.success;
-          //     var toastText = "删除成功！";
-          //     if (result != true) {
-          //       toastText = "删除失败！";
-          //     } else {
-          //       //删除数组的一行
-          //       that.data.list.splice(e.currentTarget.dataset.index, 1);
-          //       that.setData({
-          //         list: that.data.list
-          //       });
-          //     }
-          //     wx.showToast({
-          //       title: toastText,
-          //       icon: '',
-          //       duration: 2000
-          //     });
-          //   }
-          // })
+          var operBulletinDO = eee.detail.value;
+          //var operBulletinDO = [];
+          operBulletinDO['status'] = status;
+          operBulletinDO['createPerson'] = account;
+          operBulletinDO['content'] = content;
+          operBulletinDO['endTime'] = endTime+" 23:59:59";
+
+          wx.request({
+            url: url + '/operUser/addBulletinInfo',
+            data: JSON.stringify(operBulletinDO),
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            method: "POST",
+            success: function (res) {
+              //console.log(res.data)
+              var result = res.data.success;
+              if (result != true) {
+                toaseText = "公告发布失败" + res.data.errMsg;
+                wx.showToast({
+                  title: toaseText,
+                  icon: '',
+                  duration: 2000
+                });
+                return;
+              }
+              var toaseText = "公告发布成功！";
+              wx.showToast({
+                title: toaseText,
+                icon: '',
+                duration: 2000
+              });
+              wx.redirectTo({
+                url: '../bulletinManage/bulletinManage',
+              })
+
+            }
+          })
           
           console.log("提交后" + content);
 

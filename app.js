@@ -35,7 +35,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    requestUrl: 'http://nabwsr.natappfree.cc'
+    requestUrl: 'http://h84bps.natappfree.cc'
     //requestUrl: 'http://localhost:8080'
   }
 })

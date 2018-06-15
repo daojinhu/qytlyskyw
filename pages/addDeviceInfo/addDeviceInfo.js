@@ -63,6 +63,8 @@ Page({
     jieshou: '',
     deviceNo: '', //机器编号
     useNum: '', //使用次数
+    platform:'',
+    iosDeviceId:''
 
   },
 
@@ -78,6 +80,14 @@ Page({
       deviceId: options.deviceid
     })
     console.log(options.id + "====" + options.devicename);
+
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          platform: res.platform
+        })
+      }
+    })
 
     var url = getApp().globalData.requestUrl;
     //获取学校
@@ -354,7 +364,12 @@ Page({
                           var roomid = newroom[roomIndex].roomId;
 
                           operDevice["deviceName"] = that.data.deviceName;
-                          operDevice["deviceId"] = that.data.deviceId;
+                          if (platform == "android"){
+                            operDevice["deviceId"] = that.data.deviceId;
+                          }else{
+                            operDevice["iosDeviceId"] = that.data.deviceId;
+                          }
+                          
                           operDevice["deviceNo"] = hex.substr(6, 10);
                           operDevice["useNum"] = hex.substr(16, 6);
                           operDevice["deviceType"] = deviceType;
@@ -447,18 +462,21 @@ Page({
     this.setData({
       index: e.detail.value
     })
+    this.loadBuilding();
   },
   //监听楼栋号选择器
   listenerPickerBuilding: function (e) {
     this.setData({
       indexBuilding: e.detail.value
     })
+    this.loadFloor();
   },
   //监听楼层号选择器
   listenerPickerFloor: function (e) {
     this.setData({
       indexFloor: e.detail.value
     })
+    this.loadRoom();
   },
   //监听宿舍号选择器
   listenerPickerRoom: function (e) {
@@ -484,6 +502,7 @@ Page({
   loadBuilding: function(){
     var that = this;
     var index = that.data.index;
+    //console.log("hahha" + index);
     var xx = that.data.school;
     console.log("学校"+xx[index].deptId);
     that.setData({

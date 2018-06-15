@@ -1,33 +1,32 @@
 <view class="page">
   <view class="page__bd">
     <view class="lab"></view>
-    <view hover-class="weui-cell_active" style="margin-bottom:10px;">
-    <view class="weui-panel mypanel" bindtap="goTaskInfo" id="{{item.id}}">
+    <view hover-class="weui-cell_active" style="margin-bottom:10px;" wx:for="{{list}}" wx:key="unique">
+    <view class="weui-panel mypanel" id="{{item.id}}">
       <view class="weui-panel__bd">
         <view class="weui-media-box weui-media-box_text" style="margin-bottom:20px;">
-          <view class="weui-media-box__title weui-media-box__title_in-text">创建人：{item.problemDescription}</view>
+          <view class="weui-media-box__title weui-media-box__title_in-text">创建人：{{item.createPerson}}</view>
           <!-- <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>           -->
           <view class="weui-media-box__info">
             <view class="weui-media-box__info__meta" style="color:#666;">创建时间：</view>
-            <view class="weui-media-box__info__meta" style="color:#666;">{item.operDevice[0].address}</view>
+            <view class="weui-media-box__info__meta" style="color:#666;">{{item.createTime}}</view>
           </view>
           <view class="weui-media-box__info">
             <view class="weui-media-box__info__meta" style="color:#666;">内容：</view>
-            <view class="weui-media-box__info__meta" style="color:#666;">{item.operDevice[0].address}</view>
+            <view class="weui-media-box__info__meta" style="color:#666;">{{item.content}}</view>
           </view>
           <view class="weui-media-box__info">
             <view class="weui-media-box__info__meta" style="color:#666;">公告截至日期：</view>
-            <view class="weui-media-box__info__meta" style="color:#666;">{item.finishTime}</view>
+            <view class="weui-media-box__info__meta" style="color:#666;">{{item.endTime}}</view>
           </view>
         </view>
       </view>
     </view>
 
-    <view class="weui-panel mypanel" bindtap="goTaskInfo" id="{{item.id}}">
+    <!-- <view class="weui-panel mypanel" id="{{item.id}}">
       <view class="weui-panel__bd">
         <view class="weui-media-box weui-media-box_text" style="margin-bottom:20px;">
           <view class="weui-media-box__title weui-media-box__title_in-text">创建人：{item.problemDescription}</view>
-          <!-- <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>           -->
           <view class="weui-media-box__info">
             <view class="weui-media-box__info__meta" style="color:#666;">创建时间：</view>
             <view class="weui-media-box__info__meta" style="color:#666;">{item.operDevice[0].address}</view>
@@ -42,7 +41,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </view> -->
 
     </view>
     <button class="weui-btn btn-addDevice" type="primary" bindtap="funReleaseBulletin" style="background: linear-gradient(to right, #22a0ff, #007ce7);">发布公告</button>

@@ -24,7 +24,9 @@ Page({
     deviceId: "",
     accountBalance: "",//账户余额
     disabled: false,
-    disabled1: true
+    disabled1: true,
+    platform:'',//手机型号
+    iosDeviceId:''//ios设备id
   },
 
   /**
@@ -32,6 +34,14 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    wx.getSystemInfo({
+      success: function (res) {
+        that.setData({
+          platform: res.platform
+        })
+      }
+    })
+    
     var url = getApp().globalData.requestUrl;
     that.setData({
       icon: base64.icon20
@@ -121,6 +131,7 @@ Page({
         that.setData({
           list: res.data.operDeviceListById,
           deviceId: res.data.operDeviceListById[0].deviceId,
+          iosDeviceId: res.data.operDeviceListById[0].iosDeviceId,
           deviceNo: res.data.operDeviceListById[0].deviceNo,
           useNum: res.data.operDeviceListById[0].useNum
         })
@@ -218,6 +229,7 @@ Page({
         that.setData({
           list: res.data.operDeviceListById,
           deviceId: res.data.operDeviceListById[0].deviceId,
+          iosDeviceId: res.data.operDeviceListById[0].iosDeviceId,
           deviceNo: res.data.operDeviceListById[0].deviceNo,
           useNum: res.data.operDeviceListById[0].useNum
         })
@@ -316,9 +328,16 @@ Page({
     })
 
     //连接
-    var deviceId = that.data.deviceId;
+    var platform = that.data.platform;
+    var selectDeviceId = "";
+    if (platform == "android"){
+      selectDeviceId = that.data.deviceId;
+    }else{
+      selectDeviceId = that.data.iosDeviceId;
+    }
+    //var deviceId = that.data.deviceId;
     wx.createBLEConnection({
-      deviceId: deviceId,
+      deviceId: selectDeviceId,
       success: function (res) {
         console.log(res.errMsg);
         that.setData({

@@ -56,7 +56,7 @@
           <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">学校：</view>
-        <view class="weui-cell__ft">{{item.operDevice[0].school}}</view>
+        <view class="weui-cell__ft">{{school}}</view>
       </view>  
       <view class="weui-cell">
         <view class="weui-cell__hd">

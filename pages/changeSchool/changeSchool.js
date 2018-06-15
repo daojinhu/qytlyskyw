@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[]
+    list:[],
+    listSchool:''
   },
 
   /**
@@ -17,7 +18,8 @@ Page({
     var url = getApp().globalData.requestUrl;
     that.setData({
       icon20: base64.icon20,
-      icon60: base64.icon60
+      icon60: base64.icon60,
+      listSchool: options.name
     });
 
     wx.request({
@@ -84,5 +86,56 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+
+  funChangeSchool: function(e){
+    var id = e.currentTarget.dataset.id;
+     var name = e.currentTarget.dataset.name;
+    // console.log(id+"----"+name);
+    var account = wx.getStorageSync("account");
+    wx.showModal({
+      title: '提示',
+      content: '是否要切换该学校?',
+      success: function (sm) {
+        if (sm.confirm) {
+          // 用户点击了确定 可以调用删除方法了
+          //console.log("用户点击确定");
+          var url = getApp().globalData.requestUrl;
+          wx.request({
+            url: url + '/operUser/updateSchool',
+            data: {
+              account: account,
+              deptId: id
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded' // 默认值
+            },
+            method: 'POST',
+            success: function (res) {
+              var result = res.data.success;
+              wx.setStorageSync("school", name);
+              var toastText = "修改成功！";
+              if (result != true) {
+                toastText = "修改失败！";
+              } else {
+                wx.navigateBack({
+                  delta: -1
+                });
+              }
+              wx.showToast({
+                title: toastText,
+                icon: '',
+                duration: 2000
+              });
+            }
+          })
+
+        } else if (sm.cancel) {
+          //console.log('用户点击取消');
+          return;
+        }
+      }
+    })
+
   }
 })

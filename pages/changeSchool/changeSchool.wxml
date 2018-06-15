@@ -6,13 +6,12 @@
             <view class="weui-panel__bd">
                 <view class="weui-media-box weui-media-box_small-appmsg">
                     <view class="weui-cells weui-cells_in-small-appmsg">
-                        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+                        <view class="weui-cell weui-cell_access">
                             <view class="weui-cell__hd"><image src="{{icon20}}" style="width: 20px;height: 20px;margin-right: 5px" /></view>
                             <view class="weui-cell__bd weui-cell_primary">
-                                <view>深圳市乾元通科技有限公司</view>
+                                <view>{{listSchool}}</view>
                             </view>
-                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-                        </navigator>
+                        </view>
                         
                     </view>
                 </view>
@@ -24,13 +23,13 @@
             <view class="weui-panel__bd">
                 <view class="weui-media-box weui-media-box_small-appmsg">
                     <view class="weui-cells weui-cells_in-small-appmsg">
-                        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{list}}" wx:key="unique">
+                        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{list}}" wx:key="unique">
                             <view class="weui-cell__hd"><image src="{{icon20}}" style="width: 20px;height: 20px;margin-right: 5px" /></view>
-                            <view class="weui-cell__bd weui-cell_primary">
+                            <view class="weui-cell__bd weui-cell_primary" bindtap="funChangeSchool" data-id="{{item.deptId}}" data-name="{{item.name}}">
                                 <view>{{item.name}}</view>
                             </view>
                             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-                        </navigator>
+                        </view>
                         
                     </view>
                 </view>

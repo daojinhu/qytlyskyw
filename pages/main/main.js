@@ -6,7 +6,8 @@ Page({
    */
   data: {
     grids: [0, 1, 2],
-    list:[]
+    list:[],
+    listSchool:''
   },
 
   /**
@@ -29,6 +30,38 @@ Page({
   onShow: function () {
     var that = this;
     var url = getApp().globalData.requestUrl;
+
+    var account = wx.getStorageSync("account");
+    wx.request({
+      url: url + '/operUser/queryOperAddressByAccount',
+      data: {
+        account: account
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      method: "POST",
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          listSchool: res.data.queryOperAddressByAccountList[0].name
+        })
+        wx.setStorageSync("school", res.data.queryOperAddressByAccountList[0].name);
+      },
+      fail: function (err) {
+        console.log("网络错误！");
+        wx.navigateBack({
+          delta: -1
+        });
+        wx.showToast({
+          title: '网络错误！',
+          icon: 'loading',
+          duration: 1000
+        })
+        return;
+      }
+    })
+
     wx.request({
       url: url + '/operUser/queryOperRepair',
       data: {
@@ -111,8 +144,10 @@ Page({
   },
 
   goToChangeSchool: function(){
+    var that = this;
+    var listSchool = that.data.listSchool;
     wx.navigateTo({
-      url: '../changeSchool/changeSchool'
+      url: '../changeSchool/changeSchool?name='+listSchool
     })
   }
 
