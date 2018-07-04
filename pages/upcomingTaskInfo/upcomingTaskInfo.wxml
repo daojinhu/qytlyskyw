@@ -79,7 +79,7 @@
         <view class="weui-cell__ft">{{item.repairPhone}}</view>
       </view>  
     </view>
-    <button class="btn" type="primary" form-type='submit' style="background: linear-gradient(to right, #22a0ff, #007ce7);">接受任务</button>
+    <button class="btn" type="primary" bindtap="receiveTasks" form-type='submit' style="background: linear-gradient(to right, #22a0ff, #007ce7);">接受任务</button>
   </view>
 </view>
 

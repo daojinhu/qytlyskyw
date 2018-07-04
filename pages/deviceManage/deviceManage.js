@@ -174,24 +174,24 @@ Page({
     console.log("是否删除设备");
     var that = this;
     //var rid = parseInt(e.currentTarget.id);
-    //console.log(e.currentTarget.dataset.id + "---" + e.currentTarget.dataset.devicename);
+    console.log(e.currentTarget.dataset.id + "---" + e.currentTarget.dataset.devicename);
     wx.showModal({
       title: '提示',
       content: '是否要删除该设备?',
       success: function (sm) {
         if (sm.confirm) {
           // 用户点击了确定 可以调用删除方法了
-          //console.log("用户点击确定");
+          console.log(e.currentTarget.dataset.id);
           var url = getApp().globalData.requestUrl;
           wx.request({
             url: url + '/operUser/deleteOperDevice',
             data: {
-              "id": e.currentTarget.dataset.id
+              rid: e.currentTarget.dataset.id
             },
             header: {
-              'content-type': 'application/json' // 默认值
+              'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
-            method: 'GET',
+            method: 'POST',
             success: function (res) {
               var result = res.data.success;
               var toastText = "删除成功！";

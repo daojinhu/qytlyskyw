@@ -169,6 +169,9 @@ Page({
         "content-type": 'application/x-www-form-urlencoded'
       },
       success: function (res) {
+        var orderNO = res.data.outTradeNo;
+            console.log("orderNO" + orderNO);
+
         wx.requestPayment({
           timeStamp: res.data.timeStamp,
           nonceStr: res.data.nonceStr,
@@ -179,39 +182,70 @@ Page({
             console.log("付款成功");
             var newAB = ab + price/100;
             var account = wx.getStorageSync("account");
-            //////////////////////////////
+            //存入充值记录--start
+            var operOrder = {};
+            //operOrder["deviceId"] = "";
+            operOrder["customerPhone"] = account;
+            //operOrder["address"] = "";
+            operOrder["orderNO"] = orderNO;
+            operOrder["paymentMode"] = "1";
+            operOrder["consumption"] = price/100;
+            operOrder["accountBalance"] = newAB;
             wx.request({
-              url: url + "/operUser/updateAccountBalance",//调用java后台的方法  
-              data: {
-                'account': account,//需要你获取用户的openid  
-                'accountBalance': newAB,//一毛钱0.1  
+              url: url + "/operUser/addOrderInfo",//调用java后台的方法  
+              data: JSON.stringify(operOrder),
+              header: {
+                'content-type': 'application/json' // 默认值
               },
               method: 'POST',
-              header: {
-                "content-type": 'application/x-www-form-urlencoded'
-              },
               success: function (res) {
                 var result = res.data.success;
-                var toastText = "支付成功！";
+  
                 if (result != true) {
                   toastText = "支付失败！";
+                  wx.showToast({
+                    title: toastText,
+                    icon: '',
+                    duration: 2000
+                  });
                 } else {
-                  wx.redirectTo({
-                    url: '../my/my',
-                  })
-                }
-                wx.showToast({
-                  title: toastText,
-                  icon: '',
-                  duration: 2000
-                });
+                  ///////////更新账户余额-start///////////////////
+                  wx.request({
+                    url: url + "/operUser/updateAccountBalance",//调用java后台的方法  
+                    data: {
+                      'account': account,//需要你获取用户的openid  
+                      'accountBalance': newAB,//一毛钱0.1  
+                    },
+                    method: 'POST',
+                    header: {
+                      "content-type": 'application/x-www-form-urlencoded'
+                    },
+                    success: function (res) {
+                      var result = res.data.success;
+                      var toastText = "支付成功！";
+                      if (result != true) {
+                        toastText = "支付失败！";
+                      } else {
+                        wx.redirectTo({
+                          url: '../my/my',
+                        })
+                      }
+                      wx.showToast({
+                        title: toastText,
+                        icon: '',
+                        duration: 2000
+                      });
 
+                    }
+                  })
+            /////////////////更新账户余额-end////////////
+                }
+                
               }
             })
-            /////////////////////////////
-            // that.setData({
-            //   accountBlance: newAB
-            // })
+            //存入充值记录--end
+            
+            
           },
           fail: function (res) {
             console.log("付款失败");

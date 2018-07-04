@@ -21,12 +21,15 @@ Page({
     notifyCharacteristicsId: "", //通知特征值UUID  
     inputValue: "",
     characteristics1: "", // 连接设备的状态值 
-    deviceId: "",
+    deviceId: "",//android设备id
+    deviceName: "",//设备名称
+    address: "",//设备位置
     accountBalance: "",//账户余额
     disabled: false,
     disabled1: true,
     platform:'',//手机型号
-    iosDeviceId:''//ios设备id
+    iosDeviceId:'',//ios设备id
+    rateConnect: ""//写费率字符串
   },
 
   /**
@@ -50,56 +53,47 @@ Page({
       rid: options.id
     })
     var rid = options.id;
-    //console.log("dd" + options.id);
-    // wx.request({
-    //   url: url + '/operUser/queryOperDeviceById',
-    //   data: {
-    //     rid: rid
-    //   },
-    //   header: {
-    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
-    //   },
-    //   method: "POST",
-    //   success: function (res) {
-    //     console.log(res.data + "----" + res.data.operDeviceListById[0].deviceId);
-    //     that.setData({
-    //       list: res.data.operDeviceListById,
-    //       deviceId: res.data.operDeviceListById[0].deviceId,
-    //       deviceNo: res.data.operDeviceListById[0].deviceNo,
-    //       useNum: res.data.operDeviceListById[0].useNum
-    //     })
-    //   }
-    // })
+    
+    // 初始化蓝牙适配器 
+    wx.openBluetoothAdapter({
+      success: function (res) {
+        console.log("success" + res);
+        //搜索设备 
+        wx.startBluetoothDevicesDiscovery({
+          success: function (res) {
+            console.log("搜索设备" + JSON.stringify(res));
+            // 获取所有已发现的设备 
+            wx.getBluetoothDevices({
+              success: function (res) {
+                //是否有已连接设备  
+                wx.getConnectedBluetoothDevices({
+                  success: function (res) {
+                    console.log(JSON.stringify(res.devices));
+                    that.setData({
+                      connectedDeviceId: res.deviceId
+                    })
+                  }
+                })
 
-    // var account = wx.getStorageSync("account");
-    // wx.request({
-    //   url: url + '/operUser/getUserByAccount',
-    //   data: {
-    //     account: account
-    //   },
-    //   header: {
-    //     'content-type': 'application/x-www-form-urlencoded' // 默认值
-    //   },
-    //   method: "POST",
-    //   success: function (res) {
-    //     console.log(res.data + "--" + res.data.operUserList[0].decAccountBalance)
-    //     that.setData({
-    //       accountBalance: res.data.operUserList[0].decAccountBalance
-    //     })
-    //   },
-    //   fail: function (err) {
-    //     console.log("网络错误！");
-    //     wx.navigateBack({
-    //       delta: -1
-    //     });
-    //     wx.showToast({
-    //       title: '网络错误！',
-    //       icon: 'loading',
-    //       duration: 1000
-    //     })
-    //     return;
-    //   }
-    // })
+                that.setData({
+                  //msg: "搜索设备" + JSON.stringify(res.devices),
+                  devices: res.devices
+                })
+                //监听蓝牙适配器状态  
+                wx.onBluetoothAdapterStateChange(function (res) {
+                  that.setData({
+                    sousuo: res.discovering ? "在搜索。" : "未搜索。",
+                    status: res.available ? "可用。" : "不可用。",
+                  })
+                })
+              }
+            })
+          }
+        })
+
+      }
+    })
+
   },
 
   /**
@@ -127,13 +121,16 @@ Page({
       },
       method: "POST",
       success: function (res) {
-        console.log(res.data + "----" + res.data.operDeviceListById[0].deviceId);
+        console.log(res.data + "----" + res.data.operDeviceListById[0].deviceId + "----" + res.data.operDeviceListById[0].iosDeviceId);
         that.setData({
           list: res.data.operDeviceListById,
+          deviceName: res.data.operDeviceListById[0].deviceName,
           deviceId: res.data.operDeviceListById[0].deviceId,
           iosDeviceId: res.data.operDeviceListById[0].iosDeviceId,
           deviceNo: res.data.operDeviceListById[0].deviceNo,
-          useNum: res.data.operDeviceListById[0].useNum
+          useNum: res.data.operDeviceListById[0].useNum,
+          address: res.data.operDeviceListById[0].address,
+          rateConnect: res.data.operDeviceListById[0].rateConnect
         })
       }
     })
@@ -225,13 +222,14 @@ Page({
       },
       method: "POST",
       success: function (res) {
-        console.log(res.data + "----" + res.data.operDeviceListById[0].deviceId);
+        console.log(res.data + "--userDevice--" + res.data.operDeviceListById[0].deviceId + "----" + res.data.operDeviceListById[0].iosDeviceId);
         that.setData({
           list: res.data.operDeviceListById,
           deviceId: res.data.operDeviceListById[0].deviceId,
           iosDeviceId: res.data.operDeviceListById[0].iosDeviceId,
           deviceNo: res.data.operDeviceListById[0].deviceNo,
-          useNum: res.data.operDeviceListById[0].useNum
+          useNum: res.data.operDeviceListById[0].useNum,
+          rateConnect: res.data.operDeviceListById[0].rateConnect
         })
       }
     })
@@ -334,23 +332,27 @@ Page({
       selectDeviceId = that.data.deviceId;
     }else{
       selectDeviceId = that.data.iosDeviceId;
+      //selectDeviceId = "FE75EC9E-4F77-5A02-854C-191B539CF291";
     }
     //var deviceId = that.data.deviceId;
+    console.log("selectDeviceId"+selectDeviceId);
     wx.createBLEConnection({
       deviceId: selectDeviceId,
       success: function (res) {
         console.log(res.errMsg);
+        //存储设备id
+        wx.setStorageSync("selectDeviceId", selectDeviceId);
         that.setData({
-          connectedDeviceId: deviceId,
-          msg: "已连接" + deviceId,
+          connectedDeviceId: selectDeviceId,
+          msg: "已连接" + selectDeviceId,
           msg1: "",
         })
         //////////////////////
-        
+        console.log(",,,,,,,,,,,,,,,,,,,,,,," + that.data.connectedDeviceId);
         // 获取连接设备的service服务
         wx.getBLEDeviceServices({
           // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取  
-          deviceId: that.data.connectedDeviceId,
+          deviceId: selectDeviceId,
           success: function (res) {
             console.log('device services:', JSON.stringify(res.services));
             that.setData({
@@ -361,7 +363,8 @@ Page({
             //获取连接设备的所有特征值  for循环获取不到值
             wx.getBLEDeviceCharacteristics({
               // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取  
-              deviceId: that.data.connectedDeviceId,
+              //deviceId: that.data.connectedDeviceId,
+              deviceId: selectDeviceId,
               // 这里的 serviceId 需要在上面的 getBLEDeviceServices 接口中获取  
               serviceId: that.data.services[0].uuid,
               success: function (res) {
@@ -398,7 +401,8 @@ Page({
                 wx.notifyBLECharacteristicValueChange({
                   state: true, // 启用 notify 功能  
                   // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取   
-                  deviceId: that.data.connectedDeviceId,
+                  //deviceId: that.data.connectedDeviceId,
+                  deviceId: selectDeviceId,
                   // 这里的 serviceId 需要在上面的 getBLEDeviceServices 接口中获取  
                   serviceId: that.data.notifyServicweId,
                   // 这里的 characteristicId 需要在上面的 getBLEDeviceCharacteristics 接口中获取  
@@ -407,6 +411,44 @@ Page({
                     console.log('notifyBLECharacteristicValueChange success', res.errMsg)
                     console.log("1" + that.data.notifyServicweId);
                     console.log("2" + that.data.notifyCharacteristicsId);
+
+                    //将从数据库中获取的费率字符串rateConnect写进设备中--start
+                    var rateConnect = that.data.rateConnect;
+                    console.log("费率字符串"+rateConnect);
+                    var typedArray = new Uint8Array(rateConnect.match(/[\da-f]{2}/gi).map(function (h) {
+                      return parseInt(h, 16)
+                    }))
+                    var buffer1 = typedArray.buffer
+                    console.log("十六进制转换为arraybuffer" + buffer1)
+                    console.log("writeServicweId", that.data.writeServicweId);
+                    console.log("writeCharacteristicsId", that.data.writeCharacteristicsId);
+                    //let dataView = new DataView(buffer)
+                    //dataView.setUint8(0, 11)
+                    //console.log(Uint8View)
+                    wx.writeBLECharacteristicValue({
+                      // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取  
+                      deviceId: selectDeviceId,
+                      // 这里的 serviceId 需要在上面的 getBLEDeviceServices 接口中获取  
+                      serviceId: that.data.writeServicweId,
+                      // 这里的 characteristicId 需要在上面的 getBLEDeviceCharacteristics 接口中获取  
+                      characteristicId: that.data.writeCharacteristicsId,
+                      // 这里的value是ArrayBuffer类型  
+                      value: buffer1,
+                      success: function (res) {
+                        console.log('writeBLECharacteristicValue success', res.errMsg)
+                      }
+                    })
+                    // 这里的回调可以获取到 write 导致的特征值改变  
+                    wx.onBLECharacteristicValueChange(function (characteristic) {
+                      console.log('characteristic value changed:1', characteristic)
+                      let hex = Array.prototype.map.call(new Uint8Array(characteristic.value), x => ('00' + x.toString(16)).slice(-2)).join('');
+                      console.log("写费率回调"+hex);
+                      that.setData({
+                        jieshou: hex,
+                      })
+                    })
+                    //将从数据库中获取的费率字符串rateConnect写进设备中--end
+
                     ///////////////////////////////////
                     //从服务器获取连接字符串
                     var url = getApp().globalData.requestUrl;
@@ -443,10 +485,11 @@ Page({
                         console.log("writeCharacteristicsId", that.data.writeCharacteristicsId);
                         //let dataView = new DataView(buffer)
                         //dataView.setUint8(0, 11)
-                        //console.log(Uint8View)
+                        console.log(that.data.iosDeviceId + "+++相等+++" + that.data.connectedDeviceId);
                         wx.writeBLECharacteristicValue({
                           // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取  
-                          deviceId: that.data.connectedDeviceId,
+                          //deviceId: that.data.connectedDeviceId,
+                          deviceId: selectDeviceId,
                           // 这里的 serviceId 需要在上面的 getBLEDeviceServices 接口中获取  
                           serviceId: that.data.writeServicweId,
                           // 这里的 characteristicId 需要在上面的 getBLEDeviceCharacteristics 接口中获取  
@@ -581,7 +624,8 @@ Page({
         //console.log(Uint8View)
         wx.writeBLECharacteristicValue({
           // 这里的 deviceId 需要在上面的 getBluetoothDevices 或 onBluetoothDeviceFound 接口中获取  
-          deviceId: that.data.connectedDeviceId,
+          //deviceId: that.data.connectedDeviceId,
+          deviceId: wx.getStorageSync("selectDeviceId"),
           // 这里的 serviceId 需要在上面的 getBLEDeviceServices 接口中获取  
           serviceId: that.data.writeServicweId,
           // 这里的 characteristicId 需要在上面的 getBLEDeviceCharacteristics 接口中获取  
@@ -602,60 +646,95 @@ Page({
             jieshou: hex,
           })
           ////////////////////////
-          //预充到水控机的十块钱用水最后的钱数
+          //预充到水控机的十块钱用水剩下的钱数
           var lastMoney = parseInt(hex.substr(32,4),16)*0.01;
           //消费的钱
           var useMoney = 10 - lastMoney;
           //最后的余额
           var ab = accountBalance - useMoney;
           var account = wx.getStorageSync("account");
+          
+          //记录用水交易记录--start
+          var deviceName = that.data.deviceName;
+          var address = that.data.address;
+          var operOrder = {};
+          operOrder["deviceId"] = deviceName;
+          operOrder["customerPhone"] = account;
+          operOrder["address"] = address;
+          operOrder["paymentMode"] = "2";
+          operOrder["consumption"] = useMoney;
+          operOrder["accountBalance"] = ab;
           wx.request({
-            url: url + "/operUser/updateAccountBalance",//调用java后台的方法  
-            data: {
-              'account': account,//需要你获取用户的openid  
-              'accountBalance': ab
+            url: url + "/operUser/addOrderInfo",//调用java后台的方法  
+            data: JSON.stringify(operOrder),
+            header: {
+              'content-type': 'application/json' // 默认值
             },
             method: 'POST',
-            header: {
-              "content-type": 'application/x-www-form-urlencoded'
-            },
             success: function (res) {
-              var result = res.data.success;          
+              var result = res.data.success;
+
               if (result != true) {
-                var toastText = "结算失败！";
+                toastText = "结算失败！";
                 wx.showToast({
                   title: toastText,
                   icon: '',
                   duration: 2000
                 });
-                return;
-              }
-              var toastText = "结算成功！";
-              wx.showToast({
-                title: toastText,
-                icon: '',
-                duration: 2000
-              });
-              //断开连接
-              wx.closeBLEConnection({
-                deviceId: that.data.connectedDeviceId,
-                success: function (res) {
-                  console.log("断开蓝牙连接");
-                  that.setData({
-                    connectedDeviceId: "",
-                  })
-                }
-              })
+              } else {
+                ///////////更新账户余额-start///////////////////
+                wx.request({
+                  url: url + "/operUser/updateAccountBalance",//调用java后台的方法  
+                  data: {
+                    'account': account,//需要你获取用户的openid  
+                    'accountBalance': ab
+                  },
+                  method: 'POST',
+                  header: {
+                    "content-type": 'application/x-www-form-urlencoded'
+                  },
+                  success: function (res) {
+                    var result = res.data.success;
+                    if (result != true) {
+                      var toastText = "结算失败！";
+                      wx.showToast({
+                        title: toastText,
+                        icon: '',
+                        duration: 2000
+                      });
+                      return;
+                    }
+                    var toastText = "结算成功！";
+                    wx.showToast({
+                      title: toastText,
+                      icon: '',
+                      duration: 2000
+                    });
+                    //断开连接
+                    wx.closeBLEConnection({
+                      deviceId: wx.getStorageSync("selectDeviceId"),
+                      success: function (res) {
+                        console.log("断开蓝牙连接");
+                        that.setData({
+                          connectedDeviceId: "",
+                        })
+                      }
+                    })
 
-              // wx.navigateBack({
-              //   delta: -1
-              // });
-              
-              
+                    // wx.navigateBack({
+                    //   delta: -1
+                    // });
+
+
+
+                  }
+                })
+                /////////////////更新账户余额-end////////////
+              }
 
             }
           })
-          ////////////////////////
+          //记录用水交易记录--end
         })
 
         ///////////////////////////////////

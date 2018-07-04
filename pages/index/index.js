@@ -170,7 +170,7 @@ Page({
     // this.setData({
     //   motto: "Hello 哈哈"
     // })
-    wx.setStorageSync("account", "123");
+    wx.setStorageSync("account", "18194243392");
     wx.navigateTo({
       url: '../main/main',
     })

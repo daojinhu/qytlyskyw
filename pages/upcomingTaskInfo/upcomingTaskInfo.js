@@ -7,7 +7,8 @@ Page({
    */
   data: {
     list:[],
-    school:''
+    school:'',
+    rid: ''//报修记录在数据库中的id
   },
 
   /**
@@ -90,5 +91,31 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  /**
+   * 点击接受任务按钮
+   */
+  receiveTasks: function(){
+    var that = this;
+    console.log("接受任务");
+    var rid = that.data.rid;
+    var url = getApp().globalData.requestUrl;
+    var account = wx.getStorageSync("account");
+    wx.request({
+      url: url + '/operUser/queryOperRepairUpcomingById',
+      data: {
+        rid: rid
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      method: "POST",
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          list: res.data.operRepairUpcomingByIdList
+        })
+      }
+    })
   }
 })

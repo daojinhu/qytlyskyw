@@ -26,10 +26,11 @@
   <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">洗衣机</view>
 </view>
 
-<scroll-view scroll-y="true" style="height:{{scrollHeight}}px;"> 
+
 <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style="height:{{scrollHeight}}px;margin-bottom:46px;">
   
   <swiper-item>
+  <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;"> 
     <!-- <navigator url="" hover-class="weui-cell_active" wx:for="{{list}}" wx:key="unique"> -->
       <view class="weui-panel mypanel" style="margin-top:20rpx;"bindtouchstart="touchStart" bindtouchend="touchEnd" bindlongtap="bingLongTap" bindtap="goDeviceInfo" wx:for="{{list}}" wx:key="unique" data-id="{{item.id}}" data-devicename="{{item.deviceName}}" data-index="{{index}}">
         <view class="weui-panel__bd">
@@ -58,67 +59,9 @@
           </view>
         </view>
       </view>
-    </navigator>
-
-    <navigator url="" hover-class="weui-cell_active">
-      <view class="weui-panel mypanel" style="margin-top:20rpx;">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">热水澡</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">嘉皇源科技园A座</view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </navigator>
-
-    <navigator url="" hover-class="weui-cell_active">
-      <view class="weui-panel mypanel" style="margin-top:20rpx;">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">热水澡</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">嘉皇源科技园A座</view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </navigator>
-
-    <navigator url="" hover-class="weui-cell_active">
-      <view class="weui-panel mypanel" style="margin-top:20rpx;">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">热水澡</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">嘉皇源科技园A座</view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </navigator>
-
-    <navigator url="" hover-class="weui-cell_active">
-      <view class="weui-panel mypanel" style="margin-top:20rpx;">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">热水澡</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">嘉皇源科技园A座</view>
-            </view>
-          </view>
-        </view>
-      </view>
+      
     </navigator> -->
+    </scroll-view>
   </swiper-item>
   
   <swiper-item>
@@ -156,7 +99,7 @@
   
 
 </swiper>
-  </scroll-view>
+  
   <button class="weui-btn btn-addDevice" type="primary" bindtap="openAddDevice" style="background: linear-gradient(to right, #22a0ff, #007ce7);">添加设备</button>
 </view>
 </view>
