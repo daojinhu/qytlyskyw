@@ -7,10 +7,11 @@
           <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">任务状态：</view>
-        <view class="weui-cell__ft" wx:if="{{item.taskStatus == 0}}">已完成</view>
-        <view class="weui-cell__ft" wx:else>未处理</view>
+        <view class="weui-cell__ft" wx:if="{{item.taskStatus == 3}}">已完成</view>
+        <view class="weui-cell__ft" wx:if="{{item.taskStatus == 2}}">正在报修</view>
+        <view class="weui-cell__ft" wx:if="{{item.taskStatus == 1}}">未处理</view>
       </view>
-      <view class="weui-cell">
+      <view class="weui-cell" style="display:{{item.taskStatus == 2 ? 'none' : ''}};">
         <view class="weui-cell__hd">
           <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
@@ -106,6 +107,8 @@
         <view class="weui-cell__ft">{{item.problemDescription}}</view>
       </view>  
     </view>
-
+     <view style="display:{{item.taskStatus == 2 ? 'block' : 'none'}};"> 
+      <button class="btn" type="primary" style="background: linear-gradient(to right, #22a0ff, #007ce7);" bindtap="finishRepair">完成报修</button>
+    </view>
   </view>
 </view>

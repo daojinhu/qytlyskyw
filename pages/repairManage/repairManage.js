@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[],
+    list: [],
+    listBegining: [],
     rid:null
   },
 
@@ -13,23 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    var url = getApp().globalData.requestUrl;
-    wx.request({
-      url: url+'/operUser/queryOperRepairFinish',
-      data: {
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      method: "GET",
-      success: function (res) {
-        console.log(res.data)
-        that.setData({
-          list: res.data.finishOperRepairList
-        })
-      }
-    })
+    
   },
 
   /**
@@ -43,7 +28,42 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var that = this;
+    var url = getApp().globalData.requestUrl;
+    //获取已报修的设备信息
+    wx.request({
+      url: url + '/operUser/queryOperRepairFinish',
+      data: {
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: "GET",
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          list: res.data.finishOperRepairList
+        })
+      }
+    })
+
+    //获取接受任务，正在报修的设备信息
+    wx.request({
+      url: url + '/operUser/queryOperBeingRepair',
+      data: {
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: "GET",
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          listBegining: res.data.operBeingRepairList
+        })
+      }
+    })
+
   },
 
   /**

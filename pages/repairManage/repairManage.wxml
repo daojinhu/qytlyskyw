@@ -2,6 +2,29 @@
 <view class="page">
   <view class="page__bd">
     <view class="lab">
+      <label>------进行中的报修任务------</label>
+    </view>
+    <view hover-class="weui-cell_active" style="margin-bottom:10px;" wx:for="{{listBegining}}" wx:key="unique">
+    <view class="weui-panel mypanel" bindtap="goTaskInfo" id="{{item.id}}">
+      <view class="weui-panel__bd">
+        <view class="weui-media-box weui-media-box_text">
+          <view class="weui-media-box__title weui-media-box__title_in-text">{{item.problemDescription}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>          
+          <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
+            <view class="weui-media-box__info__meta" style="color:#666;">{{item.operDevice[0].address}}</view>
+          </view>
+          <!-- <view class="weui-media-box__info">
+            <view class="weui-media-box__info__meta" style="color:#666;">结束时间：</view>
+            <view class="weui-media-box__info__meta" style="color:#666;">{{item.finishTime}}</view>
+          </view> -->
+        </view>
+      </view>
+    </view>
+    </view>
+    
+
+    <view class="lab">
       <label>------已完成的报修任务------</label>
     </view>
     <view hover-class="weui-cell_active" style="margin-bottom:10px;" wx:for="{{list}}" wx:key="unique">
@@ -9,7 +32,7 @@
       <view class="weui-panel__bd">
         <view class="weui-media-box weui-media-box_text">
           <view class="weui-media-box__title weui-media-box__title_in-text">{{item.problemDescription}}</view>
-          <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>          
+          <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>       
           <view class="weui-media-box__info">
             <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
             <view class="weui-media-box__info__meta" style="color:#666;">{{item.operDevice[0].address}}</view>

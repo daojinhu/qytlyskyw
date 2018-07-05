@@ -9,3 +9,12 @@
   color: #00B26A;
   font-size: 14px;
 }
+
+/* 提交按钮 */
+.btn{
+  margin-left: 15rpx;
+  margin-right: 15rpx; 
+  margin-top: 50rpx; 
+  border-radius: 40rpx;
+  /* display: none; */
+}

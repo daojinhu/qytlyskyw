@@ -98,22 +98,41 @@ Page({
   receiveTasks: function(){
     var that = this;
     console.log("接受任务");
-    var rid = that.data.rid;
+
     var url = getApp().globalData.requestUrl;
     var account = wx.getStorageSync("account");
+    var rid = that.data.rid;
+    var operRepair = {};
+    operRepair["id"] = rid;
+    operRepair["taskStatus"] = 2;//接受任务正在处理
+    operRepair["maintainPerson"] = account;
     wx.request({
-      url: url + '/operUser/queryOperRepairUpcomingById',
-      data: {
-        rid: rid
-      },
+      url: url + '/operUser/receiveRepairTasks',
+      data: JSON.stringify(operRepair),
       header: {
-        'content-type': 'application/x-www-form-urlencoded' // 默认值
+        'content-type': 'application/json' // 默认值
       },
       method: "POST",
       success: function (res) {
-        console.log(res.data)
-        that.setData({
-          list: res.data.operRepairUpcomingByIdList
+        //console.log(res.data)
+        var result = res.data.success;
+        if (result != true) {
+          toaseText = "接受任务失败" + res.data.errMsg;
+          wx.showToast({
+            title: toaseText,
+            icon: '',
+            duration: 2000
+          });
+          return;
+        }
+        var toaseText = "接受任务成功！";
+        wx.showToast({
+          title: toaseText,
+          icon: '',
+          duration: 2000
+        });
+        wx.redirectTo({
+          url: '../repairManage/repairManage',
         })
       }
     })

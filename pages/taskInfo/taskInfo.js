@@ -92,5 +92,50 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  /**
+   * 完成报修
+   */
+  finishRepair: function(){
+    var that = this;
+    console.log("报修完成");
+
+    var url = getApp().globalData.requestUrl;
+    var account = wx.getStorageSync("account");
+    var rid = that.data.rid;
+    var operRepair = {};
+    operRepair["id"] = rid;
+    operRepair["taskStatus"] = 3;//报修完成
+    operRepair["maintainPerson"] = account;
+    wx.request({
+      url: url + '/operUser/receiveRepairTasks',
+      data: JSON.stringify(operRepair),
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      method: "POST",
+      success: function (res) {
+        //console.log(res.data)
+        var result = res.data.success;
+        if (result != true) {
+          toaseText = "完成报修提交失败" + res.data.errMsg;
+          wx.showToast({
+            title: toaseText,
+            icon: '',
+            duration: 2000
+          });
+          return;
+        }
+        var toaseText = "完成报修提交成功！";
+        wx.showToast({
+          title: toaseText,
+          icon: '',
+          duration: 2000
+        });
+        wx.navigateBack({
+          delta: -1
+        });
+      }
+    })
   }
 })
