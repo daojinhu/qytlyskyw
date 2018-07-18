@@ -18,6 +18,14 @@
           <image class="weui-grid__icon" src="../../images/repair.png" />
           <view class="weui-grid__label">报修管理</view>
         </navigator>
+        <navigator url="../orderManage/orderManage" class="weui-grid" hover-class="weui-grid_active">
+          <image class="weui-grid__icon" src="../../images/orderManage.png" />
+          <view class="weui-grid__label">订单管理</view>
+        </navigator>
+        <navigator url="../statisticalAnalysis/statisticalAnalysis" class="weui-grid" hover-class="weui-grid_active">
+          <image class="weui-grid__icon" src="../../images/statisticalAnalysis.png" />
+          <view class="weui-grid__label">统计分析</view>
+        </navigator>
         <navigator url="../bulletinManage/bulletinManage" class="weui-grid" hover-class="weui-grid_active">
           <image class="weui-grid__icon" src="../../images/bulletin.png" />
           <view class="weui-grid__label">公告管理</view>

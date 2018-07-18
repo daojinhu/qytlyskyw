@@ -144,7 +144,11 @@ Page({
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      data: { 'code': code },
+      data: { 
+        'code': code,
+        'appid': "wx8eac7f97ba6c97a2",
+        'secret': "9b3857541cf6b4665ee411c85830fcbb"
+         },
       success: function (res) {
         var openId = res.data.openid;
         that.xiadan(openId);
@@ -159,7 +163,8 @@ Page({
     wx.request({
       url: url + "/operUser/returnparam",//调用java后台的方法  
       data: {
-        'openid': openId,//需要你获取用户的openid  
+        'openid': openId,//需要你获取用户的openid
+        'appid': "wx8eac7f97ba6c97a2", 
         'title': "shoplist",//订单名称 这里随便定义shoplist  
         'price': price,//一毛钱0.1  
         'goodsid': 100,///商品ID 这里随便定义成100  
@@ -255,5 +260,60 @@ Page({
       }
     })
   },
+
+  /**
+   * 退出登录
+   */
+  logout: function(){
+    var that = this;
+    wx.showModal({
+      title: '提示',
+      content: '是否要退出登录?',
+      success: function (sm) {
+        if (sm.confirm) {
+          // 用户点击了确定 可以调用退出登录
+          wx.removeStorageSync("account");
+          wx.removeStorageSync("password");
+          wx.redirectTo({
+            url: '../login/login',
+          })
+          // console.log(e.currentTarget.dataset.id);
+          // var url = getApp().globalData.requestUrl;
+          // wx.request({
+          //   url: url + '/operUser/deleteOperDevice',
+          //   data: {
+          //     rid: e.currentTarget.dataset.id
+          //   },
+          //   header: {
+          //     'content-type': 'application/x-www-form-urlencoded' // 默认值
+          //   },
+          //   method: 'POST',
+          //   success: function (res) {
+          //     var result = res.data.success;
+          //     var toastText = "删除成功！";
+          //     if (result != true) {
+          //       toastText = "删除失败！";
+          //     } else {
+          //       //删除数组的一行
+          //       that.data.list.splice(e.currentTarget.dataset.index, 1);
+          //       that.setData({
+          //         list: that.data.list
+          //       });
+          //     }
+          //     wx.showToast({
+          //       title: toastText,
+          //       icon: '',
+          //       duration: 2000
+          //     });
+          //   }
+          // })
+
+        } else if (sm.cancel) {
+          //console.log('用户点击取消');
+          return;
+        }
+      }
+    })
+  }
 
 })

@@ -1,0 +1,13 @@
+/* pages/orderInfo/orderInfo.wxss */
+.my-list{
+  margin-top: 20rpx;
+}
+.btn-logout{
+  margin: 100px 0px 0px 0px;
+}
+.lab{
+  margin-top: 20rpx;
+  margin-left: 28rpx;
+  color: #00B26A;
+  font-size: 14px;
+}

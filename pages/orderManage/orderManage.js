@@ -1,5 +1,4 @@
-// pages/deviceManage/deviceManage.js
-//var sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
+// pages/orderManage/orderManage.js
 var app = getApp()
 Page({
 
@@ -7,9 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
     currentTab: 0,
-    list:[],
+    list: [],
     // 触摸开始时间
     touchStartTime: 0,
     // 触摸结束时间
@@ -29,9 +27,6 @@ Page({
         });
       }
     }); 
-
-
-
   },
 
   /**
@@ -130,7 +125,7 @@ Page({
     }
   },
   //点击按钮跳转到添加设备界面
-  openAddDevice: function(){
+  openAddDevice: function () {
     wx.navigateTo({
       url: '../addDevice/addDevice'
     })
@@ -141,9 +136,9 @@ Page({
     var rid = parseInt(e.currentTarget.dataset.id);
     if (that.touchEndTime - that.touchStartTime < 350) {
       wx.navigateTo({
-        url: '../deviceInfo/deviceInfo?rid=' + rid
+        url: '../orderInfo/orderInfo?rid=' + rid
       })
-    }   
+    }
   },
 
   /// 按钮触摸开始触发的事件
@@ -205,6 +200,5 @@ Page({
       }
     })
   }
-
 
 })

@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/login/login",
     "pages/index/index",
     "pages/logs/logs",
     "pages/bluetooth/bluetooth",
@@ -9,7 +10,6 @@
     "pages/addDevice/addDevice",
     "pages/deviceManage/deviceManage",
     "pages/changeSchool/changeSchool",
-    "pages/login/login",
     "pages/deviceInfo/deviceInfo",
     "pages/taskInfo/taskInfo",
     "pages/addDeviceInfo/addDeviceInfo",
@@ -18,7 +18,10 @@
     "pages/bulletinManage/bulletinManage",
     "pages/releaseBulletin/releaseBulletin",
     "pages/selectBluetooth/selectBluetooth",
-    "pages/testDevice/testDevice"
+    "pages/testDevice/testDevice",
+    "pages/orderManage/orderManage",
+    "pages/statisticalAnalysis/statisticalAnalysis",
+    "pages/orderInfo/orderInfo"
   ],
   "window":{
     "backgroundTextStyle":"light",

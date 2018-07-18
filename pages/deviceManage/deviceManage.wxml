@@ -32,7 +32,7 @@
   <swiper-item>
   <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;"> 
     <!-- <navigator url="" hover-class="weui-cell_active" wx:for="{{list}}" wx:key="unique"> -->
-      <view class="weui-panel mypanel" style="margin-top:20rpx;"bindtouchstart="touchStart" bindtouchend="touchEnd" bindlongtap="bingLongTap" bindtap="goDeviceInfo" wx:for="{{list}}" wx:key="unique" data-id="{{item.id}}" data-devicename="{{item.deviceName}}" data-index="{{index}}">
+      <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindlongtap="bingLongTap" bindtap="goDeviceInfo" wx:for="{{list}}" wx:key="unique" data-id="{{item.id}}" data-devicename="{{item.deviceName}}" data-index="{{index}}">
         <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
             <view class="weui-media-box__title weui-media-box__title_in-text">{{item.deviceName}}</view>

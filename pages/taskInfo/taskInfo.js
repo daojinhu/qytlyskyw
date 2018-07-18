@@ -126,15 +126,17 @@ Page({
           });
           return;
         }
+        wx.navigateBack({
+          delta: -1
+        });
+        
         var toaseText = "完成报修提交成功！";
         wx.showToast({
           title: toaseText,
           icon: '',
           duration: 2000
         });
-        wx.navigateBack({
-          delta: -1
-        });
+        
       }
     })
   }

@@ -35,7 +35,8 @@ App({
   },
   globalData: {
     userInfo: null,
-    requestUrl: 'http://ex3xzn.natappfree.cc'
+    //requestUrl: 'https://abc.qytkj.com'
+    requestUrl: 'http://97qpwd.natappfree.cc'
     //requestUrl: 'http://localhost:8080';
   }
 })

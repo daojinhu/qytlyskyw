@@ -93,6 +93,48 @@ Page({
    */
   onShow: function () {
     var that = this;
+
+    //判断蓝牙是否打开--start
+    that.setData({
+      isbluetoothready: !that.data.isbluetoothready,
+    })
+    wx.onBluetoothAdapterStateChange(function (res) {
+      console.log("蓝牙适配器状态变化", res)
+    })
+    if (that.data.isbluetoothready) {
+      wx.openBluetoothAdapter({
+        success: function (res) {
+          console.log("初始化蓝牙适配器成功")
+          wx.navigateTo({
+            url: '../usewater/usewater',
+          })
+        },
+        fail: function (res) {
+          console.log("初始化蓝牙适配器失败")
+          wx.showModal({
+            title: '提示',
+            content: '请检查手机蓝牙是否打开',
+            success: function (res) {
+              if (res.confirm) {
+                // 用户点击了确定 可以调用删除方法了
+                wx.navigateBack({
+                  delta: -1
+                });
+
+              } else if (res.cancel) {
+                //console.log('用户点击取消');
+                wx.navigateBack({
+                  delta: -1
+                });
+              }
+            }
+          })
+    
+        }
+      })
+    }
+    //判断蓝牙是否打开--end
+
     if (wx.openBluetoothAdapter) {
       wx.openBluetoothAdapter()
     } else {

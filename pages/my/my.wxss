@@ -5,3 +5,10 @@
 .btn-logout{
   margin: 200px 0px 0px 0px;
 }
+.recharge{
+ background: linear-gradient(to right, #22a0ff, #007ce7);
+  margin-left: 15px;
+  color: #fff;
+  padding: 4px 6px 4px 6px;
+  border-radius: 4px;
+}

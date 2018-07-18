@@ -14,7 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+  
   },
 
   /**
@@ -47,6 +47,7 @@ Page({
           listSchool: res.data.queryOperAddressByAccountList[0].name
         })
         wx.setStorageSync("school", res.data.queryOperAddressByAccountList[0].name);
+        wx.setStorageSync("schoolId", res.data.queryOperAddressByAccountList[0].deptId);
       },
       fail: function (err) {
         console.log("网络错误！");
@@ -62,14 +63,16 @@ Page({
       }
     })
 
+    var schoolId = wx.getStorageSync("schoolId");
     wx.request({
       url: url + '/operUser/queryOperRepair',
       data: {
+        'schoolId': schoolId,
       },
+      method: 'POST',
       header: {
-        'content-type': 'application/json' // 默认值
+        "content-type": 'application/x-www-form-urlencoded'
       },
-      method: "GET",
       success: function (res) {
         console.log(res.data)
         that.setData({

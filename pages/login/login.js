@@ -1,14 +1,22 @@
 var app = getApp(); 
 Page({
   data: {
-    phone: '',
+    account: '',
     password: ''
   },
 
   onLoad: function (options) {
     //获取缓存的信息
-    var usernames = wx.getStorageSync("phone")
-    var passwords = wx.getStorageSync("password")
+    var usernames = wx.getStorageSync("account");
+    var passwords = wx.getStorageSync("password");
+
+    // if(usernames != null && passwords != null){
+    //   wx.redirectTo({
+    //     url: '../main/main'
+    //   })
+    //   return;
+    // }
+    
 
     //判断用户名是否为null,如果为null,默认显示'请输入用户名'
     if (usernames == null) {
@@ -19,17 +27,17 @@ Page({
       passwords = '请输入密码'
     }
     this.setData({
-      phone: usernames,
+      account: usernames,
       password: passwords
     })
     //调用btnLoginClick方法,因为此方法中就是验证用户信息正确和        //       实现登录的代码
-    this.login()
+    this.login();
   },
 
   // 获取输入账号 
   phoneInput: function (e) {
     this.setData({
-      phone: e.detail.value
+      account: e.detail.value
     })
   },
 
@@ -42,7 +50,7 @@ Page({
 
   // 登录 
   login: function () {
-    var phone = this.data.phone;
+    var phone = this.data.account;
     var password = this.data.password;
     if (phone.length == 0) {
       wx.showToast({
@@ -62,27 +70,28 @@ Page({
     }
 
     //var pass = md5(password);
+    var url = getApp().globalData.requestUrl;
     wx.request({
-      url: 'http://eys6mv.natappfree.cc/QYTLYSK/cAPPLogin',
-      method: 'GET',
+      url: url + '/operUser/login',
+      method: 'POST',
       data:{
         username: phone,
         password: password
       },
       header: {
-        'content-type': 'application/json'
+        'content-type': 'application/x-www-form-urlencoded'
       },
       success: function(res){
         //console.log(res.data);
-        var result = res.data;
-        if(result == 2){
+        var result = res.data.operUserInfoList;
+        if(result == null || result == ''){
           wx.showToast({
             title: '不存在此用户',
             duration: 1000
           })
           return;
         }
-        if(result == 3){
+        //if(result != null){
           //信息正确弹出检测账户的提示框
           wx.showLoading({
             title: '检测中',
@@ -91,7 +100,7 @@ Page({
           //信息正确,给userInfo赋值
           app.globalData.userInfo = { phone: phone, password: password }
           //将用户名和密码缓存下来,留着实现不用重复登录  
-          wx.setStorageSync("phone", phone)
+          wx.setStorageSync("account", phone)
           wx.setStorageSync("password", password)
           // 这里修改成跳转的页面 
           wx.showToast({
@@ -103,7 +112,7 @@ Page({
           wx.redirectTo({
             url: '../main/main'
           })
-        }
+        //}
       }
     })
 
@@ -112,12 +121,21 @@ Page({
     
   },
 
-  //跳转到注册界面
-  register: function() {
-    wx.navigateTo({
-      url: '../register/register',
-    })
-  }
+  // /**
+  //  * 点击按钮跳转到找回密码界面
+  //  */
+  // forgetPwd: function(){
+  //   wx.navigateTo({
+  //     url: '../updatePassword/updatePassword',
+  //   })
+  // }
+
+  // //跳转到注册界面
+  // register: function() {
+  //   wx.navigateTo({
+  //     url: '../register/register',
+  //   })
+  // }
 
 
 

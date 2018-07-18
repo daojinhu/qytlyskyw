@@ -165,6 +165,37 @@ Page({
       }
     })
 
+    //判断蓝牙是否打开--start
+    that.setData({
+      isbluetoothready: !that.data.isbluetoothready,
+    })
+    wx.onBluetoothAdapterStateChange(function (res) {
+      console.log("蓝牙适配器状态变化", res)
+    })
+    if (that.data.isbluetoothready) {
+      wx.openBluetoothAdapter({
+        success: function (res) {
+          console.log("初始化蓝牙适配器成功")
+          wx.navigateTo({
+            url: '../usewater/usewater',
+          })
+        },
+        fail: function (res) {
+          console.log("初始化蓝牙适配器失败")
+          wx.showModal({
+            title: '提示',
+            content: '请检查手机蓝牙是否打开',
+            success: function (res) {
+              that.setData({
+
+              })
+            }
+          })
+        }
+      })
+    }
+    //判断蓝牙是否打开--end
+
     
 
   },
@@ -264,11 +295,11 @@ Page({
       }
     })
 
-    //判断是否够10块钱用水
+    //判断是否够3块钱用水
     var ab = that.data.accountBalance;
-    if (ab < 10) {
+    if (ab < 3) {
       wx.showToast({
-        title: '余额少于10元，请先充值',
+        title: '余额少于3元，请先充值',
         icon: 'loading',
         duration: 1000
       })
@@ -454,7 +485,8 @@ Page({
                     var url = getApp().globalData.requestUrl;
                     //开阀用水
                     var account = wx.getStorageSync("account");
-                    var newAcc = PrefixInteger(account, 10);
+                    var newAcc = account.substr(1,10);
+                   // var newAcc = PrefixInteger(account, 10);
                     var deviceNo = that.data.deviceNo;
                     // var ten = parseInt(that.data.useNum, 16) + 1;
                     // var hex = PrefixInteger(ten.toString(16), 6);
@@ -465,7 +497,7 @@ Page({
                         deviceNo: deviceNo,
                         useNum: hex,
                         personNo: newAcc,
-                        amount: "03e8"
+                        amount: "012c"
                       },
                       header: {
                         'content-type': 'application/x-www-form-urlencoded' // 默认值
@@ -504,7 +536,112 @@ Page({
                         wx.onBLECharacteristicValueChange(function (characteristic) {
                           console.log('characteristic value changed:1', characteristic)
                           let hex = Array.prototype.map.call(new Uint8Array(characteristic.value), x => ('00' + x.toString(16)).slice(-2)).join('');
-                          console.log("回调" + hex);
+                          console.log("回调:" + hex);
+                          //判断是否结账---start
+                          var aa = hex.substr(0,4);
+                          console.log("aa"+aa);
+                          if(aa == "a803"){
+                            console.log("相等");
+                            that.setData({
+                              jieshou: hex,
+                              disabled: false,
+                              disabled1: true
+                            })
+                            ////////////////////////
+                            var accountBalance = that.data.accountBalance;
+                            //预充到水控机的十块钱用水剩下的钱数
+                            var lastMoney = parseInt(hex.substr(32, 4), 16) * 0.01;
+                            //消费的钱
+                            var useMoney = 3 - lastMoney;
+                            //最后的余额
+                            var ab = accountBalance - useMoney;
+                            var account = wx.getStorageSync("account");
+
+                            //记录用水交易记录--start
+                            var deviceName = that.data.deviceName;
+                            var address = that.data.address;
+                            var operOrder = {};
+                            operOrder["deviceId"] = deviceName;
+                            operOrder["customerPhone"] = account;
+                            operOrder["address"] = address;
+                            operOrder["paymentMode"] = "2";
+                            operOrder["consumption"] = useMoney;
+                            operOrder["accountBalance"] = ab;
+                            wx.request({
+                              url: url + "/operUser/addOrderInfo",//调用java后台的方法  
+                              data: JSON.stringify(operOrder),
+                              header: {
+                                'content-type': 'application/json' // 默认值
+                              },
+                              method: 'POST',
+                              success: function (res) {
+                                var result = res.data.success;
+
+                                if (result != true) {
+                                  toastText = "结算失败！";
+                                  wx.showToast({
+                                    title: toastText,
+                                    icon: '',
+                                    duration: 2000
+                                  });
+                                } else {
+                                  ///////////更新账户余额-start///////////////////
+                                  wx.request({
+                                    url: url + "/operUser/updateAccountBalance",//调用java后台的方法  
+                                    data: {
+                                      'account': account,//需要你获取用户的openid  
+                                      'accountBalance': ab
+                                    },
+                                    method: 'POST',
+                                    header: {
+                                      "content-type": 'application/x-www-form-urlencoded'
+                                    },
+                                    success: function (res) {
+                                      var result = res.data.success;
+                                      if (result != true) {
+                                        var toastText = "结算失败！";
+                                        wx.showToast({
+                                          title: toastText,
+                                          icon: '',
+                                          duration: 2000
+                                        });
+                                        return;
+                                      }
+                                      var toastText = "结算成功！";
+                                      wx.showToast({
+                                        title: toastText,
+                                        icon: '',
+                                        duration: 2000
+                                      });
+                                      //断开连接
+                                      wx.closeBLEConnection({
+                                        deviceId: wx.getStorageSync("selectDeviceId"),
+                                        success: function (res) {
+                                          console.log("断开蓝牙连接");
+                                          that.setData({
+                                            connectedDeviceId: "",
+                                          })
+                                        }
+                                      })
+
+                                      // wx.navigateBack({
+                                      //   delta: -1
+                                      // });
+
+
+
+                                    }
+                                  })
+                                  /////////////////更新账户余额-end////////////
+                                }
+
+                              }
+                            })
+                            //记录用水交易记录--end
+                            return;
+                          }
+                          //判断是否结账---end
+
                           that.setData({
                             jieshou: hex,
                             //机器编号
@@ -540,13 +677,19 @@ Page({
                                 duration: 2000
                               });
 
+
                             }
                           })
 
                         })
                         ///////////////////////////////////
+
                       }
+
+
                     })
+
+
 
                   },
                   fail: function () {
@@ -649,7 +792,7 @@ Page({
           //预充到水控机的十块钱用水剩下的钱数
           var lastMoney = parseInt(hex.substr(32,4),16)*0.01;
           //消费的钱
-          var useMoney = 10 - lastMoney;
+          var useMoney = 3 - lastMoney;
           //最后的余额
           var ab = accountBalance - useMoney;
           var account = wx.getStorageSync("account");

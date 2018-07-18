@@ -114,6 +114,7 @@ Page({
             success: function (res) {
               var result = res.data.success;
               wx.setStorageSync("school", name);
+              wx.setStorageSync("schoolId", id);
               var toastText = "修改成功！";
               if (result != true) {
                 toastText = "修改失败！";
@@ -121,6 +122,9 @@ Page({
                 wx.navigateBack({
                   delta: -1
                 });
+                // wx.navigateTo({
+                //   url: '../main/main',
+                // })
               }
               wx.showToast({
                 title: toastText,

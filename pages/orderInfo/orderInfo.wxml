@@ -1,0 +1,71 @@
+<!--pages/orderInfo/orderInfo.wxml-->
+<view class="page">
+  <view class="page__bd my-list" wx:for="{{list}}" wx:key="unique">
+    <view class="lab">用户信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">用户账号：</view>
+        <view class="weui-cell__ft">18194243392</view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">该用户其它订单</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
+        </navigator>
+      </view> 
+    </view>
+
+    <view class="lab">设备信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">设备位置：</view>
+        <view class="weui-cell__ft">嘉皇源A座2楼201号</view>
+      </view>
+      <view class="weui-cells weui-cells_after-title">
+        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__hd">
+            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          </view>
+          <view class="weui-cell__bd">该设备其它订单</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
+        </navigator>
+      </view> 
+    </view>
+
+    <view class="lab">订单信息</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">订单号：</view>
+        <view class="weui-cell__ft">R2018071717434342423423423</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">支付方式：</view>
+        <view class="weui-cell__ft">预付3元</view>
+      </view>
+      <view class="weui-cell">
+        <view class="weui-cell__hd">
+          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        </view>
+        <view class="weui-cell__bd">实际消费：</view>
+        <view class="weui-cell__ft" style='color:red;'>￥0.01</view>
+      </view>     
+    </view>
+
+
+  </view>
+</view>
