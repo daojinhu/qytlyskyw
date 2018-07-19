@@ -160,10 +160,12 @@ Page({
     var ab = that.data.accountBlance;
     var url = getApp().globalData.requestUrl;
     var price = 0.01 * 100;//一毛钱=0.1*100
+    var schoolId = wx.getStorageSync("schoolId");
     wx.request({
       url: url + "/operUser/returnparam",//调用java后台的方法  
       data: {
         'openid': openId,//需要你获取用户的openid
+        'schoolId': schoolId,
         'appid': "wx8eac7f97ba6c97a2", 
         'title': "shoplist",//订单名称 这里随便定义shoplist  
         'price': price,//一毛钱0.1  
