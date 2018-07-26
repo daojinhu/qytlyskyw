@@ -70,7 +70,7 @@
       </navigator>
     </view>
     <view class="weui-cells weui-cells_after-title my-list">
-      <navigator url="../testDevice/testDevice?id={{item.id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="../testDevice/testDevice?id={{item.id}}&deviceId={{connectDeviceId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__hd">
           <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>

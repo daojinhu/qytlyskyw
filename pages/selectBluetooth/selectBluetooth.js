@@ -166,6 +166,11 @@ Page({
                   }
                 })
 
+                // var a = JSON.stringify(res.devices);
+                // var c = JSON.parse(a);
+                // var b = c[0].name;
+                // console.log(c + "dddd" + b);
+
                 that.setData({
                   //msg: "搜索设备" + JSON.stringify(res.devices),
                   devices: res.devices

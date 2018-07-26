@@ -16,3 +16,10 @@
   margin-top: 50rpx; 
   border-radius: 40rpx
 }
+.recharge{
+ background: linear-gradient(to right, #22a0ff, #007ce7);
+  margin-left: 15px;
+  color: #fff;
+  padding: 4px 6px 4px 6px;
+  border-radius: 4px;
+}

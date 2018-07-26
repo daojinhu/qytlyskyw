@@ -36,7 +36,7 @@ App({
   globalData: {
     userInfo: null,
     //requestUrl: 'https://abc.qytkj.com'
-    requestUrl: 'http://t5nukg.natappfree.cc'
+    requestUrl: 'http://wn6vn4.natappfree.cc'
     //requestUrl: 'http://localhost:8080';
   }
 })
