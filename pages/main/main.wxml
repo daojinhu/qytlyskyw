@@ -5,7 +5,8 @@
     <view class="head">
       <image class="head-img" src="../../images/location.png" />
     </view>
-    <view class="page__title head-lab">{{listSchool}}</view>
+    <view class="recharge" bindtap="addHandle">个人中心</view>
+    <view class="page__title head-lab">{{listSchool}}</view>  
   </view> 
   <view class="page__bd">
     <view class="weui-grids grid">

@@ -7,7 +7,9 @@ Page({
    */
   data: {
     currentTab: 0,
-    list: [],
+    list: [],//已结算订单
+    noList: [],//未结算订单
+    rechargeList: [],//充值订单
     // 触摸开始时间
     touchStartTime: 0,
     // 触摸结束时间
@@ -41,12 +43,14 @@ Page({
    */
   onShow: function () {
     var that = this;
+    //获取所有已结算订单信息---start
     var url = getApp().globalData.requestUrl;
     var schoolId = wx.getStorageSync("schoolId");
     wx.request({
-      url: url + '/operUser/queryOperDevice',
+      url: url + '/operUser/queryOperOrderByDeptIdAndSettlement',
       data: {
-        'schoolId': schoolId,
+        'deptId': schoolId,
+        'settlement': 1
       },
       method: 'POST',
       header: {
@@ -54,7 +58,7 @@ Page({
       },
 
       success: function (res) {
-        var list = res.data.operDeviceList;
+        var list = res.data.operOrderByDeptIdAndSettlement;
         if (list == null) {
           var toastText = '获取数据失败' + res.data.errMsg;
           wx.showToast({
@@ -69,6 +73,7 @@ Page({
         }
       }
     })
+    //获取所有已结算订单信息---end
   },
 
   /**
@@ -112,6 +117,105 @@ Page({
     that.setData({
       currentTab: e.detail.current
     });
+
+    var url = getApp().globalData.requestUrl;
+    var schoolId = wx.getStorageSync("schoolId");
+    if (e.detail.current == 0){
+      //获取所有已结算订单信息---start
+      wx.request({
+        url: url + '/operUser/queryOperOrderByDeptIdAndSettlement',
+        data: {
+          'deptId': schoolId,
+          'settlement': 1
+        },
+        method: 'POST',
+        header: {
+          "content-type": 'application/x-www-form-urlencoded'
+        },
+
+        success: function (res) {
+          var list = res.data.operOrderByDeptIdAndSettlement;
+
+          if (list == null) {
+            var toastText = '获取数据失败' + res.data.errMsg;
+            wx.showToast({
+              title: toastText,
+              icon: '',
+              duration: 2000
+            });
+          } else {
+            that.setData({
+              list: list
+            })
+          }
+        }
+      })
+    //获取所有已结算订单信息---end
+    } else if (e.detail.current == 1){
+      //获取所有已结算订单信息---start
+      wx.request({
+        url: url + '/operUser/queryOperOrderByDeptIdAndSettlement',
+        data: {
+          'deptId': schoolId,
+          'settlement': 2
+        },
+        method: 'POST',
+        header: {
+          "content-type": 'application/x-www-form-urlencoded'
+        },
+
+        success: function (res) {
+          var list = res.data.operOrderByDeptIdAndSettlement;
+
+          if (list == null) {
+            var toastText = '获取数据失败' + res.data.errMsg;
+            wx.showToast({
+              title: toastText,
+              icon: '',
+              duration: 2000
+            });
+          } else {
+            that.setData({
+              noList: list
+            })
+          }
+        }
+      })
+    //获取所有已结算订单信息---end
+
+    }else{
+      //获取所有已结算订单信息---start
+      wx.request({
+        url: url + '/operUser/queryOperOrderByPaymentModel',
+        data: {
+          'deptId': schoolId,
+          'paymentMode': 1
+        },
+        method: 'POST',
+        header: {
+          "content-type": 'application/x-www-form-urlencoded'
+        },
+
+        success: function (res) {
+          var list = res.data.operOrderRecharge;
+
+          // if (list == null) {
+          //   var toastText = '获取数据失败' + res.data.errMsg;
+          //   wx.showToast({
+          //     title: toastText,
+          //     icon: '',
+          //     duration: 2000
+          //   });
+          // } else {
+            that.setData({
+              rechargeList: list
+            })
+          //}
+        }
+      })
+    //获取所有已结算订单信息---end
+    }
+    
   },
   //点击切换
   clickTab: function (e) {
@@ -122,16 +226,109 @@ Page({
       that.setData({
         currentTab: e.target.dataset.current
       })
+
+      var url = getApp().globalData.requestUrl;
+      var schoolId = wx.getStorageSync("schoolId");
+      if (e.target.dataset.current == 0) {
+        //获取所有已结算订单信息---start
+        wx.request({
+          url: url + '/operUser/queryOperOrderByDeptIdAndSettlement',
+          data: {
+            'deptId': schoolId,
+            'settlement': 1
+          },
+          method: 'POST',
+          header: {
+            "content-type": 'application/x-www-form-urlencoded'
+          },
+
+          success: function (res) {
+            var list = res.data.operOrderByDeptIdAndSettlement;
+
+            if (list == null) {
+              var toastText = '获取数据失败' + res.data.errMsg;
+              wx.showToast({
+                title: toastText,
+                icon: '',
+                duration: 2000
+              });
+            } else {
+              that.setData({
+                list: list
+              })
+            }
+          }
+        })
+    //获取所有已结算订单信息---end
+      } else if (e.target.dataset.current == 1){
+        //获取所有已结算订单信息---start
+        wx.request({
+          url: url + '/operUser/queryOperOrderByDeptIdAndSettlement',
+          data: {
+            'deptId': schoolId,
+            'settlement': 2
+          },
+          method: 'POST',
+          header: {
+            "content-type": 'application/x-www-form-urlencoded'
+          },
+
+          success: function (res) {
+            var list = res.data.operOrderByDeptIdAndSettlement;
+
+            if (list == null) {
+              var toastText = '获取数据失败' + res.data.errMsg;
+              wx.showToast({
+                title: toastText,
+                icon: '',
+                duration: 2000
+              });
+            } else {
+              that.setData({
+                noList: list
+              })
+            }
+          }
+        })
+    //获取所有已结算订单信息---end
+
+      }else{
+        //获取所有已结算订单信息---start
+        wx.request({
+          url: url + '/operUser/queryOperOrderByPaymentMode',
+          data: {
+            'deptId': schoolId,
+            'paymentMode': 1
+          },
+          method: 'POST',
+          header: {
+            "content-type": 'application/x-www-form-urlencoded'
+          },
+
+          success: function (res) {
+            var list = res.data.operOrderRecharge;
+
+            // if (list == null) {
+            //   var toastText = '获取数据失败' + res.data.errMsg;
+            //   wx.showToast({
+            //     title: toastText,
+            //     icon: '',
+            //     duration: 2000
+            //   });
+            // } else {
+              that.setData({
+                rechargeList: list
+              })
+            // }
+          }
+        })
+    //获取所有已结算订单信息---end
+      }
     }
   },
-  //点击按钮跳转到添加设备界面
-  openAddDevice: function () {
-    wx.navigateTo({
-      url: '../addDevice/addDevice'
-    })
-  },
+
   //点击按钮跳转到设备详情页面
-  goDeviceInfo: function (e) {
+  goOrderInfo: function (e) {
     var that = this;
     var rid = parseInt(e.currentTarget.dataset.id);
     if (that.touchEndTime - that.touchStartTime < 350) {

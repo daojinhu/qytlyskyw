@@ -70,5 +70,15 @@
   padding: 6px 0px 6px 0px;
   
 }
+.recharge{
+  background: linear-gradient(to left, #22a0ff, #007ce7);
+  float:right;
+  margin-right: 15px;
+  color: #fff;
+  font-size: 14px;
+  margin-top: 5px;
+  padding: 4px 6px 4px 6px;
+  border-radius: 4px;
+}
 
 

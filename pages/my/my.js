@@ -193,7 +193,7 @@ Page({
             var operOrder = {};
             //operOrder["deviceId"] = "";
             operOrder["customerPhone"] = account;
-            //operOrder["address"] = "";
+            operOrder["schoolId"] = schoolId;
             operOrder["orderNO"] = orderNO;
             operOrder["paymentMode"] = "1";
             operOrder["consumption"] = price/100;

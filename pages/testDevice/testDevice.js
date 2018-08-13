@@ -32,7 +32,9 @@ Page({
     myDeviceId: "", //接收上一个页面的传值
     operOrderFlag: "", //查询是否结算标志
     rateReturn: "", //写费率回调
-    useNumTwo: ""
+    useNumTwo: "",
+    prepaymentValue: "",//预付费金额
+    prepaymentHex: ""//预付费16进制
   },
 
   /**
@@ -98,6 +100,35 @@ Page({
 
       }
     })
+
+    //获取预付费金额--start
+    wx.request({
+      url: url + '/operUser/queryOperPrepayment',
+      data: {},
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET",
+      success: function(res){
+        that.setData({
+          prepaymentValue: res.data.operPrepayment[0].prepaymentValue,
+          prepaymentHex: res.data.operPrepayment[0].prepaymentHex
+        })
+      },
+      fail: function (err) {
+        console.log("网络错误！");
+        wx.navigateBack({
+          delta: -1
+        });
+        wx.showToast({
+          title: '网络错误！',
+          icon: 'loading',
+          duration: 1000
+        })
+        return;
+      }
+    })
+    //获取预付费金额--end
 
     //查询预付费---start
     // wx.request({
@@ -760,7 +791,8 @@ Page({
                         deviceNo: deviceNo,
                         useNum: hex,
                         personNo: newAcc,
-                        amount: "012c"
+                        amount: that.data.prepaymentHex
+                        //amount: "012c"
                       },
                       header: {
                         'content-type': 'application/x-www-form-urlencoded' // 默认值
@@ -908,7 +940,7 @@ Page({
                             var rateReturn = hex;
                             var str = rateReturn.substr(6, 32);
                             console.log("----------" + str);
-                            var prepaid = 3;
+                            var prepaid = that.data.prepaymentValue;
                             var operDevice = {};
                             operDevice["deviceName"] = that.data.deviceName;
                             operDevice["deviceNo"] = that.data.deviceNo;
@@ -993,11 +1025,12 @@ Page({
                               //生成用水订单---start
                               var deviceName = that.data.deviceName;
                               var address = that.data.address;
-                              var prepaid = 3;
+                              var prepaid = that.data.prepaymentValue;
                               var accountBalance = that.data.accountBalance - prepaid;
                               var operOrder = {};
                               operOrder["deviceId"] = deviceName;
                               operOrder["customerPhone"] = account;
+                              operOrder["deptId"] = wx.getStorageSync("schoolId");
                               operOrder["address"] = address;
                               operOrder["orderNO"] = randomChar();
                               operOrder["paymentMode"] = "2"; //消费
@@ -1238,7 +1271,7 @@ Page({
           var str = rateReturn.substr(6, 32);
           var dn = that.data.deviceName;
           console.log("----------" + str);
-          var prepaid = 3;
+          var prepaid = that.data.prepaymentValue;//预付费
           var operDevice = {};
           operDevice["deviceName"] = dn;
           operDevice["deviceNo"] = that.data.deviceNo;

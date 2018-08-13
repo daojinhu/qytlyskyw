@@ -7,7 +7,8 @@ Page({
    */
   data: {
     rid: null,
-    list: []
+    list: [],
+    hiddenName: false
   },
 
   /**
@@ -25,7 +26,7 @@ Page({
     var rid = options.rid;
     //console.log("dd" + options.rid);
     wx.request({
-      url: url + '/operUser/queryOperDeviceById',
+      url: url + '/operUser/queryOperOrderById',
       data: {
         rid: rid
       },
@@ -35,8 +36,14 @@ Page({
       method: "POST",
       success: function (res) {
         console.log(res.data)
+        var settle = res.data.operOrderById[0].settlement;
+        if(settle == 2){
+          that.setData({
+            hiddenName: true
+          })
+        }
         that.setData({
-          list: res.data.operDeviceListById
+          list: res.data.operOrderById
         })
       }
     })

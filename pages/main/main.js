@@ -14,7 +14,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    // var that = this;
+    // var usernames = wx.getStorageSync("account");
+    // var passwords = wx.getStorageSync("password");
+    // wx.navigateTo({
+    //   url: '../login/login',
+    // })
+    // if(usernames == null && passwords == null){
+    //   wx.navigateTo({
+    //     url: '../login/login',
+    //   })
+    // }
   },
 
   /**

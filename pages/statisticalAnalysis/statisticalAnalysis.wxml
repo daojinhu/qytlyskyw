@@ -12,44 +12,62 @@
   
   <swiper-item>
     <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;"> 
-      <view class="container">
-          <canvas canvas-id="lineCanvas" disable-scroll="true" class="canvas" bindtouchstart="touchHandler"></canvas>
-          <button type="primary" bindtap="updateData">更新数据</button>
+          <canvas canvas-id="canvas1" class="myCanvas" style="width:{{chartWidth}}px;height:{{chartHeight}}px;"/>
+      <view class="table">
+        <view class="tr">
+          <view class="th">日均订单(笔)</view>
+          <view class="th">订单总量(笔)</view>
+          <view class="th">日均订单金额(元)</view>
+          <view class="th">订单总金额(元)</view>
+        </view>
+        <view class="tr">
+          <view class='td'> {{orderAmountList}} </view>
+          <view class="td"> {{orderAmountListCount}} </view>
+          <view class="td"> {{orderMoneyList}} </view>
+          <view class="td"> {{orderMoneyListCount}} </view>
+        </view>
       </view>
+    </scroll-view>   
+  </swiper-item>
+
+  <swiper-item>
+    <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;"> 
+          <canvas canvas-id="canvas2" class="myCanvas" style="width:{{chartWidth}}px;height:{{chartHeight}}px;"/>
+          <view class="table">
+            <view class="tr">
+              <view class="th">日均订单(笔)</view>
+              <view class="th">订单总量(笔)</view>
+              <view class="th">日均订单金额(元)</view>
+              <view class="th">订单总金额(元)</view>
+            </view>
+            <view class="tr">
+              <view class='td'> {{orderAmountList}} </view>
+              <view class="td"> {{orderAmountListCount}} </view>
+              <view class="td"> {{orderMoneyList}} </view>
+              <view class="td"> {{orderMoneyListCount}} </view>
+            </view>
+          </view>
     </scroll-view>
   </swiper-item>
-  
-  <swiper-item>
-    <navigator url="" hover-class="weui-cell_active">
-      <view class="weui-panel mypanel" style="margin-top:20rpx;">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">吹风机</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">嘉皇源科技园</view>
+
+   <swiper-item>
+    <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;"> 
+          <canvas canvas-id="canvas3" class="myCanvas" style="width:{{chartWidth}}px;height:{{chartHeight}}px;"/>
+          <view class="table">
+            <view class="tr">
+              <view class="th">日均订单(笔)</view>
+              <view class="th">订单总量(笔)</view>
+              <view class="th">日均订单金额(元)</view>
+              <view class="th">订单总金额(元)</view>
+            </view>
+            <view class="tr">
+              <view class='td'> {{orderAmountList}} </view>
+              <view class="td"> {{orderAmountListCount}} </view>
+              <view class="td"> {{orderMoneyList}} </view>
+              <view class="td"> {{orderMoneyListCount}} </view>
             </view>
           </view>
-        </view>
-      </view>
-    </navigator>
-  </swiper-item>
-  <swiper-item>
-    <navigator url="" hover-class="weui-cell_active">
-      <view class="weui-panel mypanel" style="margin-top:20rpx;">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">洗衣机</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">嘉皇源科技园</view>
-            </view>
-          </view>
-        </view>
-      </view>
-    </navigator>
+    </scroll-view>
   </swiper-item>
   
 
