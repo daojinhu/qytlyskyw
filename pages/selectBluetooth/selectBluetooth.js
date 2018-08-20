@@ -93,6 +93,18 @@ Page({
    */
   onShow: function () {
     var that = this;
+    // var toaseText = "正在加载...";
+    // wx.showToast({
+    //   title: toaseText,
+    //   icon: '../../images/load.png',
+    //   duration: 2000
+    // });
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
 
     //判断蓝牙是否打开--start
     that.setData({

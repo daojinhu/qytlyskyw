@@ -1,5 +1,5 @@
 // pages/upcomingTaskInfo/upcomingTaskInfo.js
-var base64 = require("../../images/base64");
+//var base64 = require("../../images/base64");
 Page({
 
   /**
@@ -18,7 +18,7 @@ Page({
     var that = this;
     var url = getApp().globalData.requestUrl;
     that.setData({
-      icon: base64.icon20,
+      //icon: base64.icon20,
       school: wx.getStorageSync("school")
     });
     that.setData({

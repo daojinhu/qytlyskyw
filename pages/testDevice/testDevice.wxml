@@ -4,11 +4,11 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/taskStatus.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">{{item.deviceName}}</view>
-        <view class="weui-cell__ft" style='color: red;'>{{connectedDeviceId == item.deviceId?"已连接":"未连接"}}</view>
-        <view class="recharge" bindtap="connectBLE">重新连接</view>
+        <!-- <view class="weui-cell__ft" style='color: red;'>{{connectedDeviceId == item.deviceId?"已连接":"未连接"}}</view>
+        <view class="recharge" bindtap="connectBLE">重新连接</view> -->
       </view>  
     </view>
     <view class="lab">确认设备信息</view>
@@ -16,7 +16,7 @@
     <view class="weui-cells weui-cells_after-title my-list">  
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/type.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">类型：</view>
         <view class="weui-cell__ft" wx:if="{{item.operDevice[0].deviceType == 1}}">热水澡</view>
@@ -25,7 +25,7 @@
       </view>   
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/location.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">位置：</view>
         <view class="weui-cell__ft">{{item.address}}</view>
@@ -37,21 +37,21 @@
     <view class="weui-cells weui-cells_after-title my-list">  
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/account.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">供应商：</view>
         <view class="weui-cell__ft">{{item.supplier}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/recharge.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">费率：</view>
         <view class="weui-cell__ft">{{item.rate}}</view>
       </view>  
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/time.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">自动关阀时间：</view>
         <view class="weui-cell__ft">{{item.closeTime}}分钟</view>

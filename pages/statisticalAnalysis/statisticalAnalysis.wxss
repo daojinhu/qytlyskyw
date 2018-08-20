@@ -66,3 +66,9 @@ height: 28px;
 font-weight: 500;
 background-color: #68d4d8;
 }
+
+.btn-addDevice{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

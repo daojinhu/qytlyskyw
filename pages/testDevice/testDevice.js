@@ -1,5 +1,5 @@
 // pages/testDevice/testDevice.js
-var base64 = require("../../images/base64");
+//var base64 = require("../../images/base64");
 Page({
 
   /**
@@ -49,11 +49,17 @@ Page({
         })
       }
     })
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
 
     var url = getApp().globalData.requestUrl;
-    that.setData({
-      icon: base64.icon20
-    });
+    // that.setData({
+    //   icon: base64.icon20
+    // });
     that.setData({
       rid: options.id,
       myDeviceId: options.deviceId
@@ -103,16 +109,18 @@ Page({
 
     //获取预付费金额--start
     wx.request({
-      url: url + '/operUser/queryOperPrepayment',
+      url: url + '/operUser/queryPrepayment',
       data: {},
       header: {
         'content-type': 'application/json'
       },
       method: "GET",
       success: function(res){
+        console.log(res.data);
+        console.log(res.data.operPrepayment.prepaymentValue + "-预付费-" + res.data.operPrepayment.prepaymentHex);
         that.setData({
-          prepaymentValue: res.data.operPrepayment[0].prepaymentValue,
-          prepaymentHex: res.data.operPrepayment[0].prepaymentHex
+          prepaymentValue: res.data.operPrepayment.prepaymentValue,
+          prepaymentHex: res.data.operPrepayment.prepaymentHex
         })
       },
       fail: function (err) {
@@ -354,15 +362,15 @@ Page({
                                   method: "POST",
                                   success: function(res) {
                                     var result = res.data.success;
-                                    var toastText = "结算成功！";
-                                    if (result != true) {
-                                      toastText = "结算失败！";
-                                    }
-                                    wx.showToast({
-                                      title: toastText,
-                                      icon: '',
-                                      duration: 2000
-                                    });
+                                    // var toastText = "结算成功！";
+                                    // if (result != true) {
+                                    //   toastText = "结算失败！";
+                                    // }
+                                    // wx.showToast({
+                                    //   title: toastText,
+                                    //   icon: '',
+                                    //   duration: 2000
+                                    // });
                                   },
                                   fail: function(err) {
                                     console.log("网络错误！");
@@ -539,6 +547,12 @@ Page({
 
   userDevice: function() {
     var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
     that.setData({
       disabled: true,
       disabled1: false
@@ -661,6 +675,15 @@ Page({
     //连接
     var selectDeviceId = that.data.myDeviceId;
     console.log("连接" + selectDeviceId);
+
+
+
+
+
+
+
+
+    
     wx.createBLEConnection({
       deviceId: selectDeviceId,
       success: function(res) {
@@ -1116,6 +1139,12 @@ Page({
   //试水结束
   closeDevice: function() {
     var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
     that.setData({
       disabled: false,
       disabled1: true
@@ -1286,16 +1315,30 @@ Page({
             },
             method: "POST",
             success: function(res) {
-              var result = res.data.success;
-              var toastText = "结算成功！";
-              if (result != true) {
-                toastText = "结算失败！";
+              var result = res.data.consumption;
+              
+              if (result > 0) {
+                var toastText = "结算成功！";
+                wx.showToast({
+                  title: toastText,
+                  icon: '',
+                  duration: 2000
+                });
+                // wx.showModal({
+                //   title: '提示',
+                //   content: "结算成功！本次共消费[" + result.toFixed(2) + "]元！",
+                //   success: function (res) {
+
+                //   }
+                // })
+              }else{
+                wx.showToast({
+                  title: "结算失败！",
+                  icon: '',
+                  duration: 2000
+                });
               }
-              wx.showToast({
-                title: toastText,
-                icon: '',
-                duration: 2000
-              });
+              
                     //断开连接
                     wx.closeBLEConnection({
                       deviceId: wx.getStorageSync("selectDeviceId"),

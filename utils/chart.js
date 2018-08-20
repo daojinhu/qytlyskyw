@@ -41,7 +41,8 @@ var dataSet = {
     color: "",
     size: 12
   },
-  color: ['#74DAE5', '#394655', '#FEE746', '#B9A39B', '#C18734', '#9EC3AD', '#6D9BA3', '#7E9C82', '#DAEE59', '#CFDCED'],
+  // #74DAE5
+  color: ['#4682B4', '#FFD700', '#FEE746', '#B9A39B', '#C18734', '#9EC3AD', '#6D9BA3', '#7E9C82', '#DAEE59', '#CFDCED'],
   xAxis: {
     color: "#666A73",
     size: 10,

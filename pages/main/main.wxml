@@ -1,9 +1,9 @@
 <!--pages/main/main.wxml-->
-<view class="add" bindtap="addHandle"><image class="weui-grid__icon btn-person" src="../../images/person.png" /></view>
+<!-- <view class="add" bindtap="addHandle"><image class="weui-grid__icon btn-person" src="../../images/person.png" /></view> -->
 <view class="page">
-  <view class="page__hd head-first" bindtap="goToChangeSchool">
+  <view class="page__hd head-first">
     <view class="head">
-      <image class="head-img" src="../../images/location.png" />
+      <image class="head-img" src="../../images/location.png" bindtap="goToChangeSchool" />
     </view>
     <view class="recharge" bindtap="addHandle">个人中心</view>
     <view class="page__title head-lab">{{listSchool}}</view>  

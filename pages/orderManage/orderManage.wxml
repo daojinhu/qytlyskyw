@@ -11,8 +11,8 @@
 <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style="height:{{scrollHeight}}px;margin-bottom:46px;">
   
   <swiper-item>
-  <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;"> 
-      <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindlongtap="bingLongTap" bindtap="goOrderInfo" wx:for="{{list}}" wx:key="unique" data-id="{{item.id}}" data-deviceid="{{item.deviceId}}" data-index="{{index}}">
+  <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="endsearchScrollLower"> 
+      <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap="goOrderInfo" wx:for="{{list}}" wx:key="unique" data-id="{{item.id}}" data-deviceid="{{item.deviceId}}" data-index="{{index}}">
         <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
             <view class="weui-media-box__title weui-media-box__title_in-text">热水澡：{{item.address}}</view>
@@ -28,11 +28,13 @@
           </view>
         </view>
       </view> 
+      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
     </scroll-view>
   </swiper-item>
   
   <swiper-item>
-    <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;"> 
+    <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="nosearchScrollLower"> 
       <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindlongtap="bingLongTap" bindtap="goOrderInfo" wx:for="{{noList}}" wx:key="unique" data-id="{{item.id}}" data-deviceid="{{item.deviceId}}" data-index="{{index}}">
         <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
@@ -49,16 +51,18 @@
           </view>
         </view>
       </view>
+      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
    </scroll-view>
   </swiper-item>
   
   <swiper-item>
-  <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;"> 
-      <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindlongtap="bingLongTap" wx:for="{{rechargeList}}" wx:key="unique" data-id="{{item.id}}" data-deviceid="{{item.deviceId}}" data-index="{{index}}">
+  <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="searchScrollLower"> 
+      <view class="weui-panel mypanel" style="margin-top:20rpx;" wx:for="{{rechargeList1}}" wx:key="unique">
         <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
             <view class="weui-media-box__title weui-media-box__title_in-text">充值订单号：{{item.orderNO}}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
+            <!-- <view class="weui-cell__ft weui-cell__ft_in-access flag"></view> -->
             <view class="weui-media-box__info">
               <view class="weui-media-box__info__meta" style="color:#666;">充值金额：</view>
               <view class="weui-media-box__info__meta" style="color:red;">￥{{item.consumption}}</view>
@@ -70,9 +74,12 @@
           </view>
         </view>
       </view> 
+      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
     </scroll-view>
   </swiper-item>
 
 </swiper>
+
 </view>
 </view>

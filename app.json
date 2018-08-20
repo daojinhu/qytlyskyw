@@ -21,7 +21,11 @@
     "pages/testDevice/testDevice",
     "pages/orderManage/orderManage",
     "pages/statisticalAnalysis/statisticalAnalysis",
-    "pages/orderInfo/orderInfo"
+    "pages/orderInfo/orderInfo",
+    "pages/repairLog/repairLog",
+    "pages/rechargeAnalysis/rechargeAnalysis",
+    "pages/personnalOrderManage/personnalOrderManage",
+    "pages/deviceOrderManage/deviceOrderManage"
   ],
   "window":{
     "backgroundTextStyle":"light",

@@ -4,7 +4,7 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/time.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">任务发布时间：</view>
         <view class="weui-cell__ft">{{item.createTime}}</view>
@@ -15,14 +15,14 @@
     <view class="weui-cells weui-cells_after-title my-list">
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/account.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">供应商：</view>
         <view class="weui-cell__ft">{{item.operDevice[0].supplier}}</view>
       </view>  
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/type.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">类型：</view>
         <view class="weui-cell__ft" wx:if="{{item.operDevice[0].deviceType == 1}}">热水澡</view>
@@ -31,21 +31,21 @@
       </view>  
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/device.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">设备ID：</view>
         <view class="weui-cell__ft">{{item.operDevice[0].deviceName}}</view>
       </view>  
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/school.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">学校：</view>
         <view class="weui-cell__ft">{{school}}</view>
       </view>  
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/location.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">位置：</view>
         <view class="weui-cell__ft">{{item.operDevice[0].address}}</view>
@@ -57,7 +57,7 @@
     <view class="weui-cells weui-cells_after-title my-list">
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/repair.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">问题选项：</view>
         <view class="weui-cell__ft" wx:if="{{item.problemOptions == 1}}">热水澡报修</view>
@@ -66,14 +66,14 @@
       </view>  
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/order.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">描述：</view>
         <view class="weui-cell__ft">{{item.problemDescription}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/phone.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">报修人电话：</view>
         <view class="weui-cell__ft">{{item.repairPhone}}</view>

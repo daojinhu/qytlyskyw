@@ -1,0 +1,21 @@
+<!--pages/repairLog/repairLog.wxml-->
+<view class="page">
+  <view class="page__bd my-list">
+<view class="weui-panel mypanel" style="margin-top:20rpx;" wx:for="{{list}}" wx:key="unique">
+        <view class="weui-panel__bd">
+          <view class="weui-media-box weui-media-box_text">
+            <view class="weui-media-box__title weui-media-box__title_in-text">设备名称：{{item.deviceId}}</view>
+            <!-- <view class="weui-cell__ft weui-cell__ft_in-access flag"></view> -->
+            <view class="weui-media-box__info">
+              <view class="weui-media-box__info__meta" style="color:#666;">出错原因：</view>
+              <view class="weui-media-box__info__meta" style="color:red;">{{item.problem}}</view>
+            </view>
+            <view class="weui-media-box__info">
+              <view class="weui-media-box__info__meta" style="color:#666;">时间：</view>
+              <view class="weui-media-box__info__meta" style="color:#666;">{{item.createTime}}</view>
+            </view>
+          </view>
+        </view>
+      </view> 
+         </view>
+      </view> 

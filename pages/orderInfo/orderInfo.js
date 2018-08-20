@@ -1,5 +1,5 @@
 // pages/orderInfo/orderInfo.js
-var base64 = require("../../images/base64");
+//var base64 = require("../../images/base64");
 Page({
 
   /**
@@ -17,9 +17,9 @@ Page({
   onLoad: function (options) {
     var that = this;
     var url = getApp().globalData.requestUrl;
-    that.setData({
-      icon: base64.icon20
-    });
+    // that.setData({
+    //   icon: base64.icon20
+    // });
     that.setData({
       rid: options.rid
     })

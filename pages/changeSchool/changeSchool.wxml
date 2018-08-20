@@ -7,7 +7,7 @@
                 <view class="weui-media-box weui-media-box_small-appmsg">
                     <view class="weui-cells weui-cells_in-small-appmsg">
                         <view class="weui-cell weui-cell_access">
-                            <view class="weui-cell__hd"><image src="{{icon20}}" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+                            <view class="weui-cell__hd"><image src="../../images/location.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
                             <view class="weui-cell__bd weui-cell_primary">
                                 <view>{{listSchool}}</view>
                             </view>
@@ -24,7 +24,7 @@
                 <view class="weui-media-box weui-media-box_small-appmsg">
                     <view class="weui-cells weui-cells_in-small-appmsg">
                         <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" wx:for="{{list}}" wx:key="unique">
-                            <view class="weui-cell__hd"><image src="{{icon20}}" style="width: 20px;height: 20px;margin-right: 5px" /></view>
+                            <view class="weui-cell__hd"><image src="../../images/school.png" style="width: 20px;height: 20px;margin-right: 5px" /></view>
                             <view class="weui-cell__bd weui-cell_primary" bindtap="funChangeSchool" data-id="{{item.deptId}}" data-name="{{item.name}}">
                                 <view>{{item.name}}</view>
                             </view>

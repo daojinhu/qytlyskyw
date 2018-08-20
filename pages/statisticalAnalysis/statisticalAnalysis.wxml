@@ -72,6 +72,6 @@
   
 
 </swiper>
-  
+  <button class="weui-btn btn-addDevice" type="primary" bindtap="goToRechargeAnalysis" style="background: linear-gradient(to right, #22a0ff, #007ce7);">跳转到充值订单统计分析</button>
 </view>
 </view>

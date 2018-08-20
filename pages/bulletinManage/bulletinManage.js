@@ -19,11 +19,26 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
+    
     var url = getApp().globalData.requestUrl;
     wx.request({
       url: url + '/operUser/queryBulletinInfo',
       data: {
+        'deptId': wx.getStorageSync("schoolId")
       },
       header: {
         'content-type': 'application/json' // 默认值
@@ -36,13 +51,6 @@ Page({
         })
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
   },
 
   /**

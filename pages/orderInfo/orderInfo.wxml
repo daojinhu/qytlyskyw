@@ -5,15 +5,15 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/account.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">用户账号：</view>
         <view class="weui-cell__ft">{{item.customerPhone}}</view>
       </view>
       <view class="weui-cells weui-cells_after-title">
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <navigator url="../personnalOrderManage/personnalOrderManage?account={{item.customerPhone}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
           <view class="weui-cell__hd">
-            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+            <image src="../../images/order.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
           </view>
           <view class="weui-cell__bd">该用户其它订单</view>
           <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
@@ -25,15 +25,15 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/location.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">设备位置：</view>
         <view class="weui-cell__ft">{{item.address}}</view>
       </view>
       <view class="weui-cells weui-cells_after-title">
-        <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <navigator url="../deviceOrderManage/deviceOrderManage?devicename={{item.deviceId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
           <view class="weui-cell__hd">
-            <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+            <image src="../../images/order.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
           </view>
           <view class="weui-cell__bd">该设备其它订单</view>
           <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
@@ -45,21 +45,21 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/orderNo.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">订单号：</view>
         <view class="weui-cell__ft">{{item.orderNO}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/avgCasumer.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">支付方式：</view>
         <view class="weui-cell__ft">预付{{item.prepaid}}元</view>
       </view>
       <view class="weui-cell" hidden="{{hiddenName}}">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/recharge.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">实际消费：</view>
         <view class="weui-cell__ft" style='color:red;'>￥{{item.consumption}}</view>

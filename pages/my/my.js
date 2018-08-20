@@ -1,5 +1,5 @@
 // pages/my/my.js
-var base64 = require("../../images/base64");
+//var base64 = require("../../images/base64");
 Page({
 
   /**
@@ -17,14 +17,34 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+  
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 1000)
     var account = wx.getStorageSync("account");
     var url = getApp().globalData.requestUrl;
-    that.setData({
-      icon: base64.icon20
-    });
+    // that.setData({
+    //   icon: base64.icon20
+    // });
     wx.request({
-      url: url+'/operUser/getUserByAccount', 
+      url: url + '/operUser/getUserByAccount',
       data: {
         account: account
       },
@@ -39,7 +59,7 @@ Page({
           accountBlance: res.data.operUserList[0].decAccountBalance
         })
       },
-      fail: function(err){
+      fail: function (err) {
         console.log("网络错误！");
         wx.navigateBack({
           delta: -1
@@ -52,20 +72,6 @@ Page({
         return;
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
   },
 
   /**

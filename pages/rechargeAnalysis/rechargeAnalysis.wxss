@@ -1,0 +1,69 @@
+/* pages/rechargeAnalysis/rechargeAnalysis.wxss */
+/* pages/statisticalAnalysis/statisticalAnalysis.wxss */
+.swiper-tab{
+    width: 100%;
+    border-bottom: 2rpx solid #ccc;
+    text-align: center;
+    height: 88rpx;
+    line-height: 88rpx;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.swiper-tab-item{
+    width: 30%; 
+    color:#434343;
+}
+.active{
+    color:#F65959;
+    border-bottom: 4rpx solid #F65959;
+}
+/* swiper{
+  text-align: center;
+} */
+
+/* 添加设备按钮 */
+.btn-addDevice{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* 图表 */
+page {
+  text-align: center;
+  background-color: #ffffff;
+}
+.myCanvas{
+  background-color: #f4f4f4;
+}
+
+/* 图表下面的表格 */
+.table {
+margin-top: 20px;
+border: 1px solid rebeccapurple;
+border-right: 0;
+border-bottom: 0;
+width: 98%;
+}
+
+.tr {
+width: 100%;
+display: flex;
+justify-content: space-between;
+}
+
+.th, .td {
+padding: 8px;
+border-bottom: 1px solid #dadada;
+border-right: 1px solid #dadada;
+text-align: center;
+width: 100%;
+height: 28px;
+}
+
+.th {
+  font-size: 12px;
+font-weight: 500;
+background-color: #68d4d8;
+}

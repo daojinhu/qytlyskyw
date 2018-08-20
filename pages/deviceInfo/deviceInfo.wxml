@@ -4,7 +4,7 @@
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/type.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">类型：</view>
         <view class="weui-cell__ft" wx:if="{{item.deviceType == 1}}">热水澡</view>
@@ -13,28 +13,28 @@
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/device.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">设备ID：</view>
         <view class="weui-cell__ft">{{item.deviceName}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/icon_location_green@3x.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">位置：</view>
         <view class="weui-cell__ft">{{item.address}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/recharge.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">费率：</view>
         <view class="weui-cell__ft">{{item.rate}}</view>
       </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/time.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">绑定时间：</view>
         <view class="weui-cell__ft">{{item.createTime}}</view>
@@ -43,36 +43,36 @@
       
     </view>
     <view class="weui-cells weui-cells_after-title my-list">
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="../repairLog/repairLog?devicename={{item.deviceName}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/orderManage.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">该设备维修记录</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
       </navigator>
     </view>
     <view class="weui-cells weui-cells_after-title my-list">
-      <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <navigator url="../deviceOrderManage/deviceOrderManage?devicename={{item.deviceName}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/order.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">该设备订单列表</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
       </navigator>
     </view>
-    <view class="weui-cells weui-cells_after-title my-list">
+    <!-- <view class="weui-cells weui-cells_after-title my-list">
       <navigator url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/repair.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">更新设备KEY</view>
         <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view>
       </navigator>
-    </view>
+    </view> -->
     <view class="weui-cells weui-cells_after-title my-list">
       <navigator url="../testDevice/testDevice?id={{item.id}}&deviceId={{connectDeviceId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__hd">
-          <image src="{{icon}}" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+          <image src="../../images/device.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">设备试水</view>
         <!-- <view class="weui-cell__ft weui-cell__ft_in-access">点击查看</view> -->

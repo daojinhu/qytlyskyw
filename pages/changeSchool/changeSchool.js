@@ -1,5 +1,5 @@
 // pages/changeSchool/changeSchool.js
-var base64 = require("../../images/base64");
+//var base64 = require("../../images/base64");
 Page({
 
   /**
@@ -17,8 +17,6 @@ Page({
     var that = this;
     var url = getApp().globalData.requestUrl;
     that.setData({
-      icon20: base64.icon20,
-      icon60: base64.icon60,
       listSchool: options.name
     });
 

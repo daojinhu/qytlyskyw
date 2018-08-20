@@ -1,5 +1,5 @@
 // pages/releaseBulletin/releaseBulletin.js
-var base64 = require("../../images/base64");
+//var base64 = require("../../images/base64");
 Page({
 
   /**
@@ -16,9 +16,9 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    that.setData({
-      icon: base64.icon20
-    })
+    // that.setData({
+    //   icon: base64.icon20
+    // })
   },
 
   /**
@@ -140,6 +140,7 @@ Page({
           //var operBulletinDO = [];
           operBulletinDO['status'] = status;
           operBulletinDO['createPerson'] = account;
+          operBulletinDO['deptId'] = wx.getStorageSync("schoolId");
           operBulletinDO['content'] = content;
           operBulletinDO['endTime'] = endTime+" 23:59:59";
 

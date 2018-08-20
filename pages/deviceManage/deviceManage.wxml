@@ -1,23 +1,3 @@
-<!--pages/deviceManage/deviceManage.wxml-->
-<!-- <view class="page">
-    <view class="page__bd">
-        <view class="weui-tab">
-            <view class="weui-navbar">
-                <block wx:for="{{tabs}}" wx:key="*this">
-                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
-                        <view class="weui-navbar__title">{{item}}</view>
-                    </view>
-                </block>
-                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
-            </view>
-            <view class="weui-tab__panel">
-                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">选项一的内容</view>
-                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">选项二的内容</view>
-                <view class="weui-tab__content" hidden="{{activeIndex != 2}}">选项三的内容</view>
-            </view>
-        </view>
-    </view>
-</view> -->
 <view class="page">
 <view class="page__bd">
 <view class="swiper-tab">
@@ -30,8 +10,7 @@
 <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style="height:{{scrollHeight}}px;margin-bottom:46px;">
   
   <swiper-item>
-  <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;"> 
-    <!-- <navigator url="" hover-class="weui-cell_active" wx:for="{{list}}" wx:key="unique"> -->
+  <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="searchScrollLower"> 
       <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindlongtap="bingLongTap" bindtap="goDeviceInfo" wx:for="{{list}}" wx:key="unique" data-id="{{item.id}}" data-devicename="{{item.deviceName}}" data-index="{{index}}">
         <view class="weui-panel__bd">
           <view class="weui-media-box weui-media-box_text">
@@ -44,23 +23,8 @@
           </view>
         </view>
       </view>
-    <!-- </navigator> -->
-
-    <!-- <navigator url="" hover-class="weui-cell_active">
-      <view class="weui-panel mypanel" style="margin-top:20rpx;">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">热水澡</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">设备地址：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">嘉皇源科技园A座</view>
-            </view>
-          </view>
-        </view>
-      </view>
-      
-    </navigator> -->
+      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
     </scroll-view>
   </swiper-item>
   

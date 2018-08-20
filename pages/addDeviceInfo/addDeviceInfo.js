@@ -1,5 +1,5 @@
 // pages/addDeviceInfo/addDeviceInfo.js
-var base64 = require("../../images/base64");
+//var base64 = require("../../images/base64");
 Page({
 
   /**
@@ -41,12 +41,12 @@ Page({
 
     // text:"这是一个页面"
     array: ['Android', 'IOS', 'ReactNativ', 'WeChat', 'Web'],
-    index: 0, //学校索引
-   // indexAddress: 0,//地址索引
-    indexBuilding: 0,//楼栋索引
-    indexFloor: 0,//楼层索引
-    indexRoom: 0,//宿舍索引
-    indexRate: 0,//费率索引
+    index: -1, //学校索引
+   // indexAddress: -1,//地址索引
+    indexBuilding: -1,//楼栋索引
+    indexFloor: -1,//楼层索引
+    indexRoom: -1,//宿舍索引
+    indexRate: -1,//费率索引
     indexColseTime: 0,//自动关阀时间索引
     time: '08:30',
     date: '2016-09-26',
@@ -74,10 +74,12 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.setData({
-      icon: base64.icon20,
+     // icon: base64.icon20,
       deviceType: options.id,
       deviceName: options.devicename,
-      deviceId: options.deviceid
+      deviceId: options.deviceid,
+      school: wx.getStorageSync("school")
+
     })
     console.log(options.id + "====" + options.devicename);
 
@@ -91,22 +93,23 @@ Page({
     })
 
     var url = getApp().globalData.requestUrl;
-    //获取学校
-    wx.request({
-      url: url + '/operUser/getAddress',
-      data: {
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      method: "GET",
-      success: function (res) {
-        console.log(res.data)
-        that.setData({
-          school: res.data.operAddressList
-        })
-      }
-    })
+    that.loadBuilding();
+    // //获取学校
+    // wx.request({
+    //   url: url + '/operUser/getAddress',
+    //   data: {
+    //   },
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   method: "GET",
+    //   success: function (res) {
+    //     console.log(res.data)
+    //     that.setData({
+    //       school: res.data.operAddressList
+    //     })
+    //   }
+    // })
 
     //获取费率
     wx.request({
@@ -541,13 +544,14 @@ Page({
   },
 
 
-  //监听学校选择器
-  listenerPickerSchool: function(e){
-    this.setData({
-      index: e.detail.value
-    })
-    this.loadBuilding();
-  },
+  // //监听学校选择器
+  // listenerPickerSchool: function(e){
+  //   this.setData({
+  //     index: e.detail.value
+  //   })
+  //   console.log("学校"+e.detail.value);
+  //   this.loadBuilding();
+  // },
   //监听楼栋号选择器
   listenerPickerBuilding: function (e) {
     this.setData({
@@ -585,27 +589,27 @@ Page({
   //加载楼栋号
   loadBuilding: function(){
     var that = this;
-    var index = that.data.index;
-    //console.log("hahha" + index);
-    var xx = that.data.school;
-    console.log("学校"+xx[index].deptId);
-    that.setData({
-      schoolId: xx[index].deptId
-    })
-    if(index == '' || index == null){
-      wx.showToast({
-        title: '请选择学校号',
-        icon: 'loading',
-        duration: 1000
-      })
-      return;
-    }
+    // var index = that.data.index;
+    // //console.log("hahha" + index);
+    // var xx = that.data.school;
+    // console.log("学校"+xx[index].deptId);
+    // that.setData({
+    //   schoolId: xx[index].deptId
+    // })
+    // if(index == '' || index == null){
+    //   wx.showToast({
+    //     title: '请选择学校号',
+    //     icon: 'loading',
+    //     duration: 1000
+    //   })
+    //   return;
+    // }
     var url = getApp().globalData.requestUrl;
     //获取楼栋
     wx.request({
       url: url + '/operUser/queryOperBuildingById',
       data: {
-        deptId: xx[index].deptId
+        deptId: wx.getStorageSync("schoolId")
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded' // 默认值

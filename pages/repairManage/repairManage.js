@@ -34,6 +34,12 @@ Page({
    */
   onShow: function () {
     var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
     var url = getApp().globalData.requestUrl;
     var schoolId = wx.getStorageSync("schoolId");
     //获取已报修的设备信息

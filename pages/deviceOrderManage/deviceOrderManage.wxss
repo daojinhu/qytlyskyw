@@ -1,0 +1,38 @@
+/* pages/deviceOrderManage/deviceOrderManage.wxss */
+.swiper-tab{
+    width: 100%;
+    border-bottom: 2rpx solid #ccc;
+    text-align: center;
+    height: 88rpx;
+    line-height: 88rpx;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+.swiper-tab-item{
+    width: 50%; 
+    color:#434343;
+}
+.active{
+    color:#F65959;
+    border-bottom: 4rpx solid #F65959;
+}
+
+.loading{
+  padding: 10rpx;
+  text-align: center;
+}
+.loading:before{
+  display: inline-block;
+  margin-right: 5rpx;
+  vertical-align: middle;
+  content: '';
+  width: 40rpx;
+  height: 40rpx;
+  /* background: url(../../images/load.png) no-repeat; */
+  background-size: contain;
+  animation: rotate 1s linear infinite;
+}
+.loading.complete:before{
+  display: none;
+}

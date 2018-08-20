@@ -43,6 +43,12 @@ Page({
    */
   onShow: function () {
     var that = this;
+    wx.showLoading({
+      title: '加载中...',
+    })
+    setTimeout(function () {
+      wx.hideLoading()
+    }, 2000)
     var url = getApp().globalData.requestUrl;
     var schoolId = wx.getStorageSync("schoolId");
     //查询预付费---start
@@ -50,6 +56,7 @@ Page({
       url: url + '/operUser/queryOrderByDeptId',
       data: {
         deptId: schoolId,
+        paymentMode: 2,
         day: 7
       },
       header: {
@@ -158,6 +165,7 @@ Page({
       url: url + '/operUser/queryOrderByDeptId',
       data: {
         deptId: schoolId,
+        paymentMode: 2,
         day: day
       },
       header: {
@@ -234,6 +242,7 @@ Page({
         url: url + '/operUser/queryOrderByDeptId',
         data: {
           deptId: schoolId,
+          paymentMode: 2,
           day: day
         },
         header: {
@@ -317,5 +326,10 @@ Page({
         // }
       ]
     });
+  },
+  goToRechargeAnalysis: function(){
+    wx.navigateTo({
+      url: '../rechargeAnalysis/rechargeAnalysis',
+    })
   }
 })
