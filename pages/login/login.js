@@ -1,22 +1,14 @@
-var app = getApp(); 
+var app = getApp();
 Page({
   data: {
     account: '',
     password: ''
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     //获取缓存的信息
     var usernames = wx.getStorageSync("account");
     var passwords = wx.getStorageSync("password");
-
-    // if(usernames != null && passwords != null){
-    //   wx.redirectTo({
-    //     url: '../main/main'
-    //   })
-    //   return;
-    // }
-    
 
     //判断用户名是否为null,如果为null,默认显示'请输入用户名'
     if (usernames == null) {
@@ -35,21 +27,21 @@ Page({
   },
 
   // 获取输入账号 
-  phoneInput: function (e) {
+  phoneInput: function(e) {
     this.setData({
       account: e.detail.value
     })
   },
 
   // 获取输入密码 
-  passwordInput: function (e) {
+  passwordInput: function(e) {
     this.setData({
       password: e.detail.value
     })
   },
 
   // 登录 
-  login: function () {
+  login: function() {
     var phone = this.data.account;
     var password = this.data.password;
     if (phone.length == 0) {
@@ -69,75 +61,50 @@ Page({
       return;
     }
 
-    //var pass = md5(password);
     var url = getApp().globalData.requestUrl;
     wx.request({
       url: url + '/operUser/login',
       method: 'POST',
-      data:{
+      data: {
         username: phone,
         password: password
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
       },
-      success: function(res){
-        //console.log(res.data);
+      success: function(res) {
         var result = res.data.operUserInfoList;
-        if(result == null || result == ''){
+        if (result == null || result == '') {
           wx.showToast({
             title: '不存在此用户',
             duration: 1000
           })
           return;
         }
-        //if(result != null){
-          //信息正确弹出检测账户的提示框
-          wx.showLoading({
-            title: '检测中',
-            duration: 1000
-          })
-          //信息正确,给userInfo赋值
-          app.globalData.userInfo = { phone: phone, password: password }
-          //将用户名和密码缓存下来,留着实现不用重复登录  
-          wx.setStorageSync("account", phone)
-          wx.setStorageSync("password", password)
-          // 这里修改成跳转的页面 
-          wx.showToast({
-            title: '登录成功',
-            icon: 'success',
-            duration: 1000
-          })
-          //跳转页面,并且关闭当前页面
-          wx.redirectTo({
-            url: '../main/main'
-          })
-        //}
+        //信息正确弹出检测账户的提示框
+        wx.showLoading({
+          title: '检测中',
+          duration: 1000
+        })
+        //信息正确,给userInfo赋值
+        app.globalData.userInfo = {
+          phone: phone,
+          password: password
+        }
+        //将用户名和密码缓存下来,留着实现不用重复登录  
+        wx.setStorageSync("account", phone)
+        wx.setStorageSync("password", password)
+        // 这里修改成跳转的页面 
+        wx.showToast({
+          title: '登录成功',
+          icon: 'success',
+          duration: 1000
+        })
+        //跳转页面,并且关闭当前页面
+        wx.redirectTo({
+          url: '../main/main'
+        })
       }
     })
-
-    
-
-    
-  },
-
-  // /**
-  //  * 点击按钮跳转到找回密码界面
-  //  */
-  // forgetPwd: function(){
-  //   wx.navigateTo({
-  //     url: '../updatePassword/updatePassword',
-  //   })
-  // }
-
-  // //跳转到注册界面
-  // register: function() {
-  //   wx.navigateTo({
-  //     url: '../register/register',
-  //   })
-  // }
-
-
-
-
+  }
 })

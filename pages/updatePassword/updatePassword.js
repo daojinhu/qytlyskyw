@@ -6,95 +6,95 @@ Page({
    */
   data: {
     //旧密码
-    password:'',
+    password: '',
     //新密码
-    newPassword:'',
+    newPassword: '',
     //确认密码
-    confirmPassword:''
+    confirmPassword: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-  
+  onLoad: function(options) {
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   },
 
   //清除输入框
-  passwordInput: function(e){
+  passwordInput: function(e) {
     var name = e.currentTarget.dataset.name;
     this.setData({
       [name]: e.detail.value.replace(/\s+/g, '')
-    })  
+    })
   },
-  clearOldPwd: function(e){
+  clearOldPwd: function(e) {
     this.setData({
       password: ''
     })
   },
   //清除新密码
-  clearNewPwd: function () {
+  clearNewPwd: function() {
     this.setData({
       newPassword: ''
     })
   },
   //清除确认密码
-  clearConfirmPwd: function () {
+  clearConfirmPwd: function() {
     this.setData({
       confirmPassword: ''
     })
   },
   //提交修改密码
-  submitPassword: function(){
+  submitPassword: function() {
     var that = this;
     var password = this.data.password;
     var newPassword = this.data.newPassword;
@@ -123,7 +123,7 @@ Page({
       })
       return;
     }
-    if (newPassword != confirmPassword){
+    if (newPassword != confirmPassword) {
       wx.showToast({
         title: '确认密码不一致',
         icon: 'loading',
@@ -135,10 +135,9 @@ Page({
     wx.showModal({
       title: '提示',
       content: '是否要修改密码?',
-      success: function (sm) {
+      success: function(sm) {
         if (sm.confirm) {
           // 用户点击了确定 可以调用修改密码方法
-          //console.log("用户点击确定");
           var url = getApp().globalData.requestUrl;
           var account = wx.getStorageSync("account");
           wx.request({
@@ -151,7 +150,7 @@ Page({
               'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
             method: 'POST',
-            success: function (res) {
+            success: function(res) {
               var result = res.data.success;
               var toastText = "密码修改成功！";
               if (result != true) {
@@ -168,16 +167,10 @@ Page({
               });
             }
           })
-
         } else if (sm.cancel) {
-          //console.log('用户点击取消');
           return;
         }
       }
     })
-
-
   }
-  
-
 })

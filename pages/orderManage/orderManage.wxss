@@ -29,7 +29,6 @@
   content: '';
   width: 40rpx;
   height: 40rpx;
-  /* background: url(../../images/load.png) no-repeat; */
   background-size: contain;
   animation: rotate 1s linear infinite;
 }

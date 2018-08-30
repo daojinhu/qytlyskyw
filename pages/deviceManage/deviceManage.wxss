@@ -17,9 +17,6 @@
     color:#F65959;
     border-bottom: 4rpx solid #F65959;
 }
-/* swiper{
-  text-align: center;
-} */
 
 /* 添加设备按钮 */
 .btn-addDevice{
@@ -39,7 +36,6 @@
   content: '';
   width: 40rpx;
   height: 40rpx;
-  /* background: url(../../../images/location.png) no-repeat; */
   background-size: contain;
   animation: rotate 1s linear infinite;
 }

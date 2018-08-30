@@ -1,5 +1,4 @@
 // pages/releaseBulletin/releaseBulletin.js
-//var base64 = require("../../images/base64");
 Page({
 
   /**
@@ -14,17 +13,14 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
-    // that.setData({
-    //   icon: base64.icon20
-    // })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
     var that = this;
     var time1 = new Date().Format("yyyy-MM-dd");
     that.setData({
@@ -35,70 +31,53 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   },
   //事件
-  bindTextAreaBlur: function (e) {
-    // if (e.detail.value.length == 0 || e.detail.value == '' || e.detail.value == null) {
-    //   wx.showToast({
-    //     title: '请输入发布内容',
-    //     icon: 'loading',
-    //     duration: 1000
-    //   })
-    //   return;
-    // }
-    // if (e.detail.value.length < 10 || e.detail.value.length > 500) {
-    //   wx.showToast({
-    //     title: '内容为10-500个字符',
-    //     icon: 'loading',
-    //     duration: 1000
-    //   })
-    //   return;     
-    // }
+  bindTextAreaBlur: function(e) {
     this.setData({
-      // evaContent: e.detail.value.replace(/\s+/g, '')
       evaContent: e.detail.value
     });
   },
 
   //提交事件
-  evaSubmit: function (eee) {
+  evaSubmit: function(eee) {
     var that = this;
     //创建人
     var account = wx.getStorageSync("account");
@@ -106,18 +85,16 @@ Page({
     var status = "0";
     //内容
     var content = that.data.evaContent;
-    console.log(content);
     //结束时间
     var endTime = that.data.date;
-    
+
     //提交(自定义的get方法)
     wx.showModal({
       title: '提示',
       content: '确定要发布该信息?',
-      success: function (sm) {
+      success: function(sm) {
         if (sm.confirm) {
           // 用户点击了确定 可以调用删除方法了
-          //console.log("用户点击确定");
           var url = getApp().globalData.requestUrl;
           if (content.length == 0 || content == '' || content == null) {
             wx.showToast({
@@ -137,12 +114,11 @@ Page({
             return;
           }
           var operBulletinDO = eee.detail.value;
-          //var operBulletinDO = [];
           operBulletinDO['status'] = status;
           operBulletinDO['createPerson'] = account;
           operBulletinDO['deptId'] = wx.getStorageSync("schoolId");
           operBulletinDO['content'] = content;
-          operBulletinDO['endTime'] = endTime+" 23:59:59";
+          operBulletinDO['endTime'] = endTime + " 23:59:59";
 
           wx.request({
             url: url + '/operUser/addBulletinInfo',
@@ -151,8 +127,7 @@ Page({
               'content-type': 'application/json' // 默认值
             },
             method: "POST",
-            success: function (res) {
-              //console.log(res.data)
+            success: function(res) {
               var result = res.data.success;
               if (result != true) {
                 toaseText = "公告发布失败" + res.data.errMsg;
@@ -172,30 +147,23 @@ Page({
               wx.redirectTo({
                 url: '../bulletinManage/bulletinManage',
               })
-
             }
           })
-          
-          console.log("提交后" + content);
-
         } else if (sm.cancel) {
-          //console.log('用户点击取消');
           return;
         }
       }
     })
-    
   },
 
   /**
- * 监听日期picker选择器
- */
-  listenerDatePickerSelected: function (e) {
+   * 监听日期picker选择器
+   */
+  listenerDatePickerSelected: function(e) {
     this.setData({
       date: e.detail.value
     })
   }
-
 })
 
 // 对Date的扩展，将 Date 转化为指定格式的String
@@ -204,7 +172,7 @@ Page({
 // 例子： 
 // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423 
 // (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18 
-Date.prototype.Format = function (fmt) { //author: meizz 
+Date.prototype.Format = function(fmt) { //author: meizz 
   var o = {
     "M+": this.getMonth() + 1, //月份 
     "d+": this.getDate(), //日 

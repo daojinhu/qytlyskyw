@@ -17,9 +17,6 @@
     color:#F65959;
     border-bottom: 4rpx solid #F65959;
 }
-/* swiper{
-  text-align: center;
-} */
 
 /* 添加设备按钮 */
 .btn-addDevice{

@@ -24,7 +24,7 @@
         </view>
         <view class="weui-cell__bd">维修人员：</view>
         <view class="weui-cell__ft">{{item.maintainPerson}}</view>
-      </view>  
+      </view>
     </view>
     <view class="lab">任务信息</view>
 
@@ -35,7 +35,7 @@
         </view>
         <view class="weui-cell__bd">供应商：</view>
         <view class="weui-cell__ft">{{item.operDevice[0].supplier}}</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/type.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
@@ -44,28 +44,28 @@
         <view class="weui-cell__ft" wx:if="{{item.deviceType == 1}}">热水澡</view>
         <view class="weui-cell__ft" wx:elif="{{item.deviceType == 2}}">吹风机</view>
         <view class="weui-cell__ft" wx:else>洗衣机</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/device.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">设备ID：</view>
         <view class="weui-cell__ft">{{item.operDevice[0].deviceName}}</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/school.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">学校：</view>
         <view class="weui-cell__ft">{{school}}</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/location.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">位置：</view>
         <view class="weui-cell__ft">{{item.operDevice[0].address}}</view>
-      </view>  
+      </view>
     </view>
 
     <view class="weui-cells weui-cells_after-title my-list">
@@ -98,19 +98,19 @@
         <view class="weui-cell__ft" wx:if="{{item.problemOptions == 1}}">热水澡报修</view>
         <view class="weui-cell__ft" wx:elif="{{item.problemOptions == 2}}">吹风机报修</view>
         <view class="weui-cell__ft" wx:else>洗衣机报修</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/bulletin.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">描述：</view>
         <view class="weui-cell__ft">{{item.problemDescription}}</view>
-      </view>  
+      </view>
     </view>
 
-     <view style="display:{{item.taskStatus == 2 ? 'block' : 'none'}};"> 
-     <view class="lab">维修问题描述</view>
-    <textarea name="evaContent" bindblur="bindTextAreaBlur" maxlength="500" value="{{evaContent}}" class="weui-textarea" placeholder="请输入维修问题描述信息(12-500字)" style='background:#fff;' />
+    <view style="display:{{item.taskStatus == 2 ? 'block' : 'none'}};">
+      <view class="lab">维修问题描述</view>
+      <textarea name="evaContent" bindblur="bindTextAreaBlur" maxlength="500" value="{{evaContent}}" class="weui-textarea" placeholder="请输入维修问题描述信息(12-500字)" style='background:#fff;' />
       <button class="btn" type="primary" style="background: linear-gradient(to right, #22a0ff, #007ce7);" bindtap="finishRepair">完成报修</button>
     </view>
   </view>

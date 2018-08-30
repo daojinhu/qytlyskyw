@@ -1,85 +1,80 @@
 <!--pages/orderManage/orderManage.wxml-->
 <view class="page">
-<view class="page__bd">
-<view class="swiper-tab">
-  <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">已结算订单</view>
-  <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">待结算订单</view>
-  <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">充值订单</view>
-</view>
-
-
-<swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style="height:{{scrollHeight}}px;margin-bottom:46px;">
-  
-  <swiper-item>
-  <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="endsearchScrollLower"> 
-      <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap="goOrderInfo" wx:for="{{list}}" wx:key="unique" data-id="{{item.id}}" data-deviceid="{{item.deviceId}}" data-index="{{index}}">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">热水澡：{{item.address}}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">金额：</view>
-              <view class="weui-media-box__info__meta" style="color:red;">￥{{item.consumption}}</view>
-            </view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">时间：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">{{item.lastEditTime}}</view>
-            </view>
-          </view>
-        </view>
-      </view> 
-      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
-      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
-    </scroll-view>
-  </swiper-item>
-  
-  <swiper-item>
-    <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="nosearchScrollLower"> 
-      <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindlongtap="bingLongTap" bindtap="goOrderInfo" wx:for="{{noList}}" wx:key="unique" data-id="{{item.id}}" data-deviceid="{{item.deviceId}}" data-index="{{index}}">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">热水澡：{{item.address}}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">待结算金额：</view>
-              <view class="weui-media-box__info__meta" style="color:red;">￥{{item.prepaid}}</view>
-            </view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">时间：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">{{item.createTime}}</view>
+  <view class="page__bd">
+    <view class="swiper-tab">
+      <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">已结算订单</view>
+      <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">待结算订单</view>
+      <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">充值订单</view>
+    </view>
+    <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style="height:{{scrollHeight}}px;margin-bottom:46px;">
+      <swiper-item>
+        <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="endsearchScrollLower">
+          <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap="goOrderInfo" wx:for="{{list}}" wx:key="unique" data-id="{{item.id}}" data-deviceid="{{item.deviceId}}" data-index="{{index}}">
+            <view class="weui-panel__bd">
+              <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">热水澡：{{item.address}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta" style="color:#666;">金额：</view>
+                  <view class="weui-media-box__info__meta" style="color:red;">￥{{item.consumption}}</view>
+                </view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta" style="color:#666;">时间：</view>
+                  <view class="weui-media-box__info__meta" style="color:#666;">{{item.lastEditTime}}</view>
+                </view>
+              </view>
             </view>
           </view>
-        </view>
-      </view>
-      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
-      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
-   </scroll-view>
-  </swiper-item>
-  
-  <swiper-item>
-  <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="searchScrollLower"> 
-      <view class="weui-panel mypanel" style="margin-top:20rpx;" wx:for="{{rechargeList1}}" wx:key="unique">
-        <view class="weui-panel__bd">
-          <view class="weui-media-box weui-media-box_text">
-            <view class="weui-media-box__title weui-media-box__title_in-text">充值订单号：{{item.orderNO}}</view>
-            <!-- <view class="weui-cell__ft weui-cell__ft_in-access flag"></view> -->
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">充值金额：</view>
-              <view class="weui-media-box__info__meta" style="color:red;">￥{{item.consumption}}</view>
-            </view>
-            <view class="weui-media-box__info">
-              <view class="weui-media-box__info__meta" style="color:#666;">时间：</view>
-              <view class="weui-media-box__info__meta" style="color:#666;">{{item.createTime}}</view>
+          <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+          <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
+        </scroll-view>
+      </swiper-item>
+
+      <swiper-item>
+        <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="nosearchScrollLower">
+          <view class="weui-panel mypanel" style="margin-top:20rpx;" bindtouchstart="touchStart" bindtouchend="touchEnd" bindlongtap="bingLongTap" bindtap="goOrderInfo" wx:for="{{noList}}" wx:key="unique" data-id="{{item.id}}" data-deviceid="{{item.deviceId}}"
+            data-index="{{index}}">
+            <view class="weui-panel__bd">
+              <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">热水澡：{{item.address}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access flag"></view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta" style="color:#666;">待结算金额：</view>
+                  <view class="weui-media-box__info__meta" style="color:red;">￥{{item.prepaid}}</view>
+                </view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta" style="color:#666;">时间：</view>
+                  <view class="weui-media-box__info__meta" style="color:#666;">{{item.createTime}}</view>
+                </view>
+              </view>
             </view>
           </view>
-        </view>
-      </view> 
-      <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
-      <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
-    </scroll-view>
-  </swiper-item>
+          <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+          <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
+        </scroll-view>
+      </swiper-item>
 
-</swiper>
-
-</view>
+      <swiper-item>
+        <scroll-view scroll-y="true" style="height:{{scrollHeight - 10}}px;" bindscrolltolower="searchScrollLower">
+          <view class="weui-panel mypanel" style="margin-top:20rpx;" wx:for="{{rechargeList1}}" wx:key="unique">
+            <view class="weui-panel__bd">
+              <view class="weui-media-box weui-media-box_text">
+                <view class="weui-media-box__title weui-media-box__title_in-text">充值订单号：{{item.orderNO}}</view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta" style="color:#666;">充值金额：</view>
+                  <view class="weui-media-box__info__meta" style="color:red;">￥{{item.consumption}}</view>
+                </view>
+                <view class="weui-media-box__info">
+                  <view class="weui-media-box__info__meta" style="color:#666;">时间：</view>
+                  <view class="weui-media-box__info__meta" style="color:#666;">{{item.createTime}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <view class="loading" hidden="{{!searchLoading}}">正在载入更多...</view>
+          <view class="loading complete" hidden="{{!searchLoadingComplete}}">已加载全部</view>
+        </scroll-view>
+      </swiper-item>
+    </swiper>
+  </view>
 </view>

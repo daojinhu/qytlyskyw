@@ -1,19 +1,18 @@
 // pages/changeSchool/changeSchool.js
-//var base64 = require("../../images/base64");
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list:[],
-    listSchool:''
+    list: [],
+    listSchool: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
     var url = getApp().globalData.requestUrl;
     that.setData({
@@ -21,15 +20,13 @@ Page({
     });
 
     wx.request({
-      url: url+'/operUser/getAddress',
-      data: {
-      },
+      url: url + '/operUser/getAddress',
+      data: {},
       header: {
         'content-type': 'application/json' // 默认值
       },
       method: "GET",
-      success: function (res) {
-        //console.log(res.data)
+      success: function(res) {
         that.setData({
           list: res.data.operAddressList
         })
@@ -40,64 +37,62 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   },
 
-  funChangeSchool: function(e){
+  funChangeSchool: function(e) {
     var id = e.currentTarget.dataset.id;
-     var name = e.currentTarget.dataset.name;
-    // console.log(id+"----"+name);
+    var name = e.currentTarget.dataset.name;
     var account = wx.getStorageSync("account");
     wx.showModal({
       title: '提示',
       content: '是否要切换该学校?',
-      success: function (sm) {
+      success: function(sm) {
         if (sm.confirm) {
           // 用户点击了确定 可以调用删除方法了
-          //console.log("用户点击确定");
           var url = getApp().globalData.requestUrl;
           wx.request({
             url: url + '/operUser/updateSchool',
@@ -109,7 +104,7 @@ Page({
               'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
             method: 'POST',
-            success: function (res) {
+            success: function(res) {
               var result = res.data.success;
               wx.setStorageSync("school", name);
               wx.setStorageSync("schoolId", id);
@@ -120,9 +115,6 @@ Page({
                 wx.navigateBack({
                   delta: -1
                 });
-                // wx.navigateTo({
-                //   url: '../main/main',
-                // })
               }
               wx.showToast({
                 title: toastText,
@@ -133,11 +125,9 @@ Page({
           })
 
         } else if (sm.cancel) {
-          //console.log('用户点击取消');
           return;
         }
       }
     })
-
   }
 })

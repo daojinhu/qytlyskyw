@@ -1,5 +1,4 @@
 /* pages/rechargeAnalysis/rechargeAnalysis.wxss */
-/* pages/statisticalAnalysis/statisticalAnalysis.wxss */
 .swiper-tab{
     width: 100%;
     border-bottom: 2rpx solid #ccc;
@@ -18,9 +17,6 @@
     color:#F65959;
     border-bottom: 4rpx solid #F65959;
 }
-/* swiper{
-  text-align: center;
-} */
 
 /* 添加设备按钮 */
 .btn-addDevice{

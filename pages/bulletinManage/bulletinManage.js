@@ -45,7 +45,6 @@ Page({
       },
       method: "GET",
       success: function (res) {
-        console.log(res.data)
         that.setData({
           list: res.data.operBulletinList
         })

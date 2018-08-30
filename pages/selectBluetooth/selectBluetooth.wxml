@@ -1,14 +1,13 @@
 <!--pages/selectBluetooth/selectBluetooth.wxml-->
 <view class="page">
   <view class="page__bd">
-  <view class="add-device-list">
-    <view class="weui-cells weui-cells_after-title add-device-list" wx:for="{{devices}}" wx:key="unique">
-      <navigator url="../addDeviceInfo/addDeviceInfo?id=1&devicename={{item.name}}&deviceid={{item.deviceId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">{{item.name}}</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-      </navigator>
-    </view>
-    
+    <view class="add-device-list">
+      <view class="weui-cells weui-cells_after-title add-device-list" wx:for="{{devices}}" wx:key="unique">
+        <navigator url="../addDeviceInfo/addDeviceInfo?id=1&devicename={{item.name}}&deviceid={{item.deviceId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+          <view class="weui-cell__bd">{{item.name}}</view>
+          <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </navigator>
+      </view>
     </view>
   </view>
 </view>

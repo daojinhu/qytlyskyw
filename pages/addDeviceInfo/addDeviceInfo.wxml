@@ -1,155 +1,88 @@
 <!--pages/addDeviceInfo/addDeviceInfo.wxml-->
 <view class="page">
-<view class="page__bd my-list">
-<form bindsubmit="formSubmit">
+  <view class="page__bd my-list">
+    <form bindsubmit="formSubmit">
 
- <view class="add-device-list">
-    <view class="weui-cells weui-cells_after-title add-device-list" bindtap="backToSelectBluetooth">
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__bd">{{deviceName}}</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-      </view>
-    </view>
-
-    <view class="weui-cells weui-cells_after-title my-list">
-      <view class="weui-cell weui-cell_access">
-        <view class="weui-cell__hd">
-          <image src="../../images/school.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+      <view class="add-device-list">
+        <view class="weui-cells weui-cells_after-title add-device-list" bindtap="backToSelectBluetooth">
+          <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">{{deviceName}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+          </view>
         </view>
-        <view class="weui-cell__bd">学校</view>
-        <view class="weui-cell__ft">{{school}}</view>
-      </view>
-    </view>
 
-    <!-- <picker mode="selector" range="{{school}}" value="{{school[index].deptId}}" range-key="{{'name'}}" bindchange="listenerPickerSchool">
-    <view class="weui-cells weui-cells_after-title my-list">
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd">
-          <image src="../../images/school.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+        <view class="weui-cells weui-cells_after-title my-list">
+          <view class="weui-cell weui-cell_access">
+            <view class="weui-cell__hd">
+              <image src="../../images/school.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+            </view>
+            <view class="weui-cell__bd">学校</view>
+            <view class="weui-cell__ft">{{school}}</view>
+          </view>
         </view>
-        <view class="weui-cell__bd">请选择学校</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{index == -1 ? '请选择学校' : school[index].name}}</view>
+
+        <picker mode="selector" range="{{building}}" value="{{building[indexBuilding]}}" range-key="{{'buildingName'}}" bindtap="loadBuilding" bindchange="listenerPickerBuilding">
+          <view class="weui-cells weui-cells_after-title my-list">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="../../images/building.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+              </view>
+              <view class="weui-cell__bd">请选择楼栋号</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access">{{indexBuilding == -1 ? '请选择楼栋号' : building[indexBuilding].buildingName}}</view>
+            </view>
+          </view>
+        </picker>
+
+        <picker mode="selector" range="{{floor}}" value="{{floor[indexFloor]}}" range-key="{{'floorName'}}" bindtap="loadFloor" bindchange="listenerPickerFloor">
+          <view class="weui-cells weui-cells_after-title my-list">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="../../images/floor.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+              </view>
+              <view class="weui-cell__bd">请选择楼层号</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access">{{indexFloor == -1 ? '请选择楼层号' : floor[indexFloor].floorName}}</view>
+            </view>
+          </view>
+        </picker>
+
+        <picker mode="selector" range="{{room}}" value="{{room[indexRoom]}}" range-key="{{'roomName'}}" bindtap="loadRoom" bindchange="listenerPickerRoom">
+          <view class="weui-cells weui-cells_after-title my-list">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="../../images/orderNo.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+              </view>
+              <view class="weui-cell__bd">请选择宿舍号</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access">{{indexRoom == -1 ? '请选择宿舍号' : room[indexRoom].roomName}}</view>
+            </view>
+          </view>
+        </picker>
+
+        <picker mode="selector" range="{{rate}}" value="{{rate[indexRate].id}}" range-key="{{'rate'}}" bindchange="listenerPickerRate">
+          <view class="weui-cells weui-cells_after-title my-list">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="../../images/recharge.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+              </view>
+              <view class="weui-cell__bd">请选择费率</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access">{{indexRate == -1 ? '请选择费率' : rate[indexRate].rate}}</view>
+            </view>
+          </view>
+        </picker>
+
+        <picker mode="selector" range="{{rate}}" value="{{rate[indexCloseTime].id}}}" range-key="{{'closeTime'}}" bindchange="listenerPickerColseTime">
+          <view class="weui-cells weui-cells_after-title my-list">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+              <view class="weui-cell__hd">
+                <image src="../../images/time.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
+              </view>
+              <view class="weui-cell__bd">请选择自动关阀时间</view>
+              <view class="weui-cell__ft weui-cell__ft_in-access">{{rate[indexCloseTime].closeTime}}分钟</view>
+            </view>
+          </view>
+        </picker>
       </view>
-      </view>
-    </picker> -->
-
-    <picker mode="selector" range="{{building}}" value="{{building[indexBuilding]}}" range-key="{{'buildingName'}}" bindtap="loadBuilding" bindchange="listenerPickerBuilding">
-    <view class="weui-cells weui-cells_after-title my-list">
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd">
-          <image src="../../images/building.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-        </view>
-        <view class="weui-cell__bd">请选择楼栋号</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{indexBuilding == -1 ? '请选择楼栋号' : building[indexBuilding].buildingName}}</view>
-      </view>
-      </view>
-    </picker>
-
-    <picker mode="selector" range="{{floor}}" value="{{floor[indexFloor]}}" range-key="{{'floorName'}}" bindtap="loadFloor" bindchange="listenerPickerFloor">
-    <view class="weui-cells weui-cells_after-title my-list">
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd">
-          <image src="../../images/floor.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-        </view>
-        <view class="weui-cell__bd">请选择楼层号</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{indexFloor == -1 ? '请选择楼层号' : floor[indexFloor].floorName}}</view>
-      </view>
-      </view>
-    </picker>
-
-    <picker mode="selector" range="{{room}}" value="{{room[indexRoom]}}" range-key="{{'roomName'}}" bindtap="loadRoom" bindchange="listenerPickerRoom">
-    <view class="weui-cells weui-cells_after-title my-list">
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd">
-          <image src="../../images/orderNo.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-        </view>
-        <view class="weui-cell__bd">请选择宿舍号</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{indexRoom == -1 ? '请选择宿舍号' : room[indexRoom].roomName}}</view>
-      </view>
-      </view>
-    </picker>
-
-    <picker mode="selector" range="{{rate}}" value="{{rate[indexRate].id}}" range-key="{{'rate'}}" bindchange="listenerPickerRate">
-    <view class="weui-cells weui-cells_after-title my-list">
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd">
-          <image src="../../images/recharge.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-        </view>
-        <view class="weui-cell__bd">请选择费率</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{indexRate == -1 ? '请选择费率' : rate[indexRate].rate}}</view>
-      </view>
-      </view>
-    </picker>
-
-    <picker mode="selector" range="{{rate}}" value="{{rate[indexCloseTime].id}}}" range-key="{{'closeTime'}}" bindchange="listenerPickerColseTime">
-    <view class="weui-cells weui-cells_after-title my-list">
-      <view class="weui-cell weui-cell_access" hover-class="weui-cell_active">
-        <view class="weui-cell__hd">
-          <image src="../../images/time.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
-        </view>
-        <view class="weui-cell__bd">请选择自动关阀时间</view>
-        <view class="weui-cell__ft weui-cell__ft_in-access">{{rate[indexCloseTime].closeTime}}分钟</view>
-      </view>
-      </view>
-    </picker>
-    
-
-    
-  </view> 
-
-<!-- <view>普通选择器</view> -->
-<!--mode默认selector range数据源value选择的index bindchange事件监听-->
-<!-- <picker mode="selector" range="{{array}}" value="{{index}}" bindchange="listenerPickerSelected">
-    <text>{{array[index]}}</text>
-</picker>
-
-<view>时间选择器</view>
-<picker mode="time" value="{{time}}" start="06:00" end="24:00" bindchange="listenerTimePickerSelected">
-    <text>{{time}}</text>
-</picker>
-
-<view>日期选择器</view>
-<picker mode="date" value="{{date}}" start="2016-09-26" end="2017-10-10" bindchange="listenerDatePickerSelected">
-    <text>{{date}}</text>
-</picker> -->
-
-<!--style的优先级比class高会覆盖和class相同属性-->
-<!--头像-->
-<!-- <view style="display:flex;justify-content: center;">
-    <image style="width:130rpx;height:130rpx;border-radius:50%;margin-top:10%;" src="../../images/img.png"></image>
-</view> -->
-
-
-<!--这个是输入框背景-->
-<!-- <view class="inputView"> -->
-    <!--这个是输入框-->
-    <!-- <input class="input"  type="number" placeholder="请输入设备号" placeholder-style="color: gray"  name="deviceName"/>
-</view>
-<view class="inputView">
-    <input class="input" placeholder="请输入学校" placeholder-style="color: gray" name="school"/>
-</view>
-<view class="inputView">
-    <input class="input" placeholder="请输入设备地址" placeholder-style="color: gray" name="address"/>
-</view>
-<view class="inputView">
-    <input class="input" placeholder="请输入楼栋号" placeholder-style="color: gray" name="building"/>
-</view>
-<view class="inputView">
-    <input class="input" placeholder="请输入楼层号" placeholder-style="color: gray" name="floor"/>
-</view>
-<view class="inputView">
-    <input class="input" placeholder="请输入宿舍号" placeholder-style="color: gray" name="dormitory"/>
-</view>
-<view class="inputView">
-    <input class="input" placeholder="请输入费率" placeholder-style="color: gray" name="rate"/>
-</view>
-<view class="inputView">
-    <input class="input" placeholder="请输入自动关阀时间" placeholder-style="color: gray" name="closeTime"/>
-</view> -->
-<!--登录按钮-->
-<button class="btn" type="primary" form-type='submit' style="background: linear-gradient(to right, #22a0ff, #007ce7);">提交</button>
-
-<!--<button class="weui-btn btn-addDevice" type="primary" form-type='submit'>提交</button> -->
-</form>
-</view>
+      <!--提交按钮-->
+      <button class="btn" type="primary" form-type='submit' style="background: linear-gradient(to right, #22a0ff, #007ce7);">提交</button>
+    </form>
+  </view>
 </view>

@@ -7,7 +7,7 @@ Page({
   data: {
     list: [],
     listBegining: [],
-    rid:null,
+    rid: null,
     currentTab: 0,
     // 触摸开始时间
     touchStartTime: 0,
@@ -18,26 +18,26 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    
+  onLoad: function(options) {
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     var that = this;
     wx.showLoading({
       title: '加载中...',
     })
-    setTimeout(function () {
+    setTimeout(function() {
       wx.hideLoading()
     }, 2000)
     var url = getApp().globalData.requestUrl;
@@ -52,8 +52,7 @@ Page({
       header: {
         "content-type": 'application/x-www-form-urlencoded'
       },
-      success: function (res) {
-        console.log(res.data)
+      success: function(res) {
         that.setData({
           list: res.data.finishOperRepairList
         })
@@ -70,52 +69,50 @@ Page({
       header: {
         "content-type": 'application/x-www-form-urlencoded'
       },
-      success: function (res) {
-        console.log(res.data)
+      success: function(res) {
         that.setData({
           listBegining: res.data.operBeingRepairList
         })
       }
     })
-
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   },
   //跳转到报修详情
-  goTaskInfo: function(e){
+  goTaskInfo: function(e) {
     var that = this;
     var rid = parseInt(e.currentTarget.id);
     if (that.touchEndTime - that.touchStartTime < 350) {
@@ -123,26 +120,26 @@ Page({
         url: '../taskInfo/taskInfo?rid=' + rid
       })
     }
-    
+
   },
   /// 按钮触摸开始触发的事件
-  touchStart: function (e) {
+  touchStart: function(e) {
     this.touchStartTime = e.timeStamp;
   },
 
   /// 按钮触摸结束触发的事件
-  touchEnd: function (e) {
+  touchEnd: function(e) {
     this.touchEndTime = e.timeStamp;
   },
 
   //长按删除完成的报修任务
-  deleteTask: function(e){
+  deleteTask: function(e) {
     var that = this;
     var rid = parseInt(e.currentTarget.id);
     wx.showModal({
       title: '提示',
       content: '删除该报修记录?',
-      success: function (sm) {
+      success: function(sm) {
         if (sm.confirm) {
           // 用户点击了确定 可以调用删除方法了
           var url = getApp().globalData.requestUrl;
@@ -155,7 +152,7 @@ Page({
               'content-type': 'application/x-www-form-urlencoded' // 默认值
             },
             method: 'POST',
-            success: function (res) {
+            success: function(res) {
               var result = res.data.success;
               var toastText = "删除成功！";
               if (result != true) {
@@ -174,15 +171,10 @@ Page({
               });
             }
           })
-
         } else if (sm.cancel) {
-          //console.log('用户点击取消');
           return;
         }
       }
     })
-
   }
-
-
 })

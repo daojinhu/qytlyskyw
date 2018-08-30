@@ -8,7 +8,7 @@
         </view>
         <view class="weui-cell__bd">任务发布时间：</view>
         <view class="weui-cell__ft">{{item.createTime}}</view>
-      </view>  
+      </view>
     </view>
     <view class="lab">任务信息</view>
 
@@ -19,7 +19,7 @@
         </view>
         <view class="weui-cell__bd">供应商：</view>
         <view class="weui-cell__ft">{{item.operDevice[0].supplier}}</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/type.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
@@ -28,28 +28,28 @@
         <view class="weui-cell__ft" wx:if="{{item.operDevice[0].deviceType == 1}}">热水澡</view>
         <view class="weui-cell__ft" wx:elif="{{item.operDevice[0].deviceType == 2}}">吹风机</view>
         <view class="weui-cell__ft" wx:else>洗衣机</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/device.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">设备ID：</view>
         <view class="weui-cell__ft">{{item.operDevice[0].deviceName}}</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/school.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">学校：</view>
         <view class="weui-cell__ft">{{school}}</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/location.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
         </view>
         <view class="weui-cell__bd">位置：</view>
         <view class="weui-cell__ft">{{item.operDevice[0].address}}</view>
-      </view>  
+      </view>
     </view>
 
     <view class="lab">报修信息</view>
@@ -63,7 +63,7 @@
         <view class="weui-cell__ft" wx:if="{{item.problemOptions == 1}}">热水澡报修</view>
         <view class="weui-cell__ft" wx:elif="{{item.problemOptions == 2}}">吹风机报修</view>
         <view class="weui-cell__ft" wx:else>洗衣机报修</view>
-      </view>  
+      </view>
       <view class="weui-cell">
         <view class="weui-cell__hd">
           <image src="../../images/order.png" style="margin-right: 5px;vertical-align: middle;width:20px; height: 20px;"></image>
@@ -77,9 +77,8 @@
         </view>
         <view class="weui-cell__bd">报修人电话：</view>
         <view class="weui-cell__ft">{{item.repairPhone}}</view>
-      </view>  
+      </view>
     </view>
     <button class="btn" type="primary" bindtap="receiveTasks" form-type='submit' style="background: linear-gradient(to right, #22a0ff, #007ce7);">接受任务</button>
   </view>
 </view>
-

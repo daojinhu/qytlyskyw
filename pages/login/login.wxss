@@ -79,7 +79,6 @@ page{
   margin-top: 10px;
 }
  .lab label {
-  /* margin: 0px 50px 0px 15px; */
   color: #666;
   font-size: 12px;
 } 

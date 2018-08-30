@@ -16,5 +16,4 @@
   margin-right: 15rpx; 
   margin-top: 50rpx; 
   border-radius: 40rpx;
-  /* display: none; */
 }
